@@ -25,16 +25,18 @@ angular.module 'spicyPartyApp'
       scope.profile = playerData.profile
       scope.gameLog = playerData.profile.gameLog
       scope.playerData = playerData
-      scope.recentSearches = $scope.addRecent(playerData.profile.playerName, playerData)
+      playerName = playerData.profile.playerName.split(' ').join('.')
+      scope.recentSearches = $scope.addRecent(playerName, playerData)
       state.transitionTo('main.matches', {player: playerName})
   $scope.searchPlayer = (playerName)->
-    playerCache = Recent.checkRecent(playerName)
-    if playerCache
-      console.log('cache found')
-      loadPlayerData(playerCache)
-    else
+    if playerName
       playerName = playerName.split(' ').join('.')
-      $http.get("/api/data/" + playerName).success(loadPlayerData)
+      playerCache = Recent.checkRecent(playerName)
+      if playerCache
+        console.log('cache found')
+        loadPlayerData(playerCache)
+      else
+        $http.get("/api/data/" + playerName).success(loadPlayerData)
 
   $scope.refreshPlayer = ->
     if $scope.profile
@@ -43,7 +45,8 @@ angular.module 'spicyPartyApp'
           $scope.profile = playerData.profile
           $scope.gameLog = playerData.profile.gameLog
           $scope.playerData = playerData
-          $scope.recentSearches = $scope.addRecent(playerData.profile.playerName, playerData)
+          playerName = playerData.profile.playerName.split(' ').join('.')
+          $scope.recentSearches = $scope.addRecent(playerName, playerData)
           $scope.lastUpdated = new Date()
         )
   $scope.clearHistory = ->

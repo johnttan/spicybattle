@@ -19,29 +19,29 @@
             .ui.grid
               .row
                 .four.wide.right.aligned.column
-                  div Tier : 
-                  div Wins : 
-                  div Losses : 
-                  div Knockouts : 
-                  div Defeats : 
-                  div Assists : 
-                  div Towers : 
-                  div Largest Spree : 
-                  div Minions : 
-                  div Jungle Minions : 
-                  div Highest Score : 
+                  .ui.header Tier : 
+                  .ui.header Wins : 
+                  .ui.header Losses : 
+                  .ui.header Knockouts : 
+                  .ui.header Defeats : 
+                  .ui.header Assists : 
+                  .ui.header Towers : 
+                  .ui.header Largest Spree : 
+                  .ui.header Minions : 
+                  .ui.header Jungle Minions : 
+                  .ui.header Highest Score : 
                 .four.wide.left.aligned.column
-                  div {{tierConvert(profile.tier)}}
-                  div {{profile.winsPVP}}
-                  div {{profile.playsPVP - profile.winsPVP}}
-                  div {{profile.kills}}
-                  div {{profile.deaths}}
-                  div {{profile.assists}}
-                  div {{profile.towers}}
-                  div {{profile.largestSpree}}
-                  div {{profile.minions}}
-                  div {{profile.jungleMobs}}
-                  div {{profile.scoreHighest}}
+                  .ui.header {{tierConvert(profile.tier)}}
+                  .ui.header {{profile.winsPVP}}
+                  .ui.header {{profile.playsPVP - profile.winsPVP}}
+                  .ui.header {{profile.kills}}
+                  .ui.header {{profile.deaths}}
+                  .ui.header {{profile.assists}}
+                  .ui.header {{profile.towers}}
+                  .ui.header {{profile.largestSpree}}
+                  .ui.header {{profile.minions}}
+                  .ui.header {{profile.jungleMobs}}
+                  .ui.header {{profile.scoreHighest}}
                 .twelve.wide.column
           div(ng-show="checkLocation('/matches')")
             .ui.segment(ng-repeat="game in gameLog")
@@ -61,19 +61,33 @@
                     .ui.small.rounded.image
                       a.ui.header {{game.teammate2}}
                       img(ng-src="{{avatarURL(game.teammate2)}}")
-                  .eight.wide.left.aligned.column
-                    div {{backpackBuild(game)}}
-                    div score : {{game.score}}
-                    div towers : {{game.towers}}
-                    div minions : {{game.minions}}
-                    div jungle : {{game.jungleMobs}}
-                    div winning team elo  : {{game.winTeamElo}}
-                    div losing team elo : {{game.loseTeamElo}}
-                    div largest killing spree : {{game.largestSpree}}
-                    div damage dealt : {{game.damageDealtTotal}}
-                    div magic damage dealt : {{game.damageDealtSpell}}
-                    div physical damage dealt : {{game.damageDealtPhysical}}
-                    div time dead : {{convertToSec(game.timeDead) + ' seconds'}}
-                    div disconnected : {{!game.connected}}
+                  .four.wide.right.aligned.column
+                    .ui.small.header build :
+                    .ui.small.header score :
+                    .ui.small.header towers :
+                    .ui.small.header minions :
+                    .ui.small.header jungle :
+                    .ui.small.header winning team elo :
+                    .ui.small.header losing team elo :
+                    .ui.small.header largest spree :
+                    .ui.small.header damage dealt :
+                    .ui.small.header magic damage :
+                    .ui.small.header physical damage :
+                    .ui.small.header time dead :
+                    .ui.small.header disconnected :
+                  .four.wide.left.aligned.column
+                    .ui.small.header {{backpackBuild(game)}}
+                    .ui.small.header {{game.score}}
+                    .ui.small.header {{game.towers}}
+                    .ui.small.header {{game.minions}}
+                    .ui.small.header {{game.jungleMobs}}
+                    .ui.small.header {{game.winTeamElo}}
+                    .ui.small.header {{game.loseTeamElo}}
+                    .ui.small.header {{game.largestSpree}}
+                    .ui.small.header {{game.damageDealtTotal}}
+                    .ui.small.header {{game.damageDealtSpell}}
+                    .ui.small.header {{game.damageDealtPhysical}}
+                    .ui.small.header {{convertToSec(game.timeDead) + ' seconds'}}
+                    .ui.small.header {{!game.connected}}
 
           //- div {{playerData}}
