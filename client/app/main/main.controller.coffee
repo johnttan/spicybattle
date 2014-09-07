@@ -51,7 +51,6 @@ angular.module 'spicyPartyApp'
       last = last.getTime()
       # last = new Date(last.getTime() - (1000 * 60 * 60 * 5))
     since = Date.now()
-    console.log(last, since)
     since = since - last
     totalMinutes = parseInt(since/1000/60)
     hours = parseInt(Math.floor(totalMinutes/60)).toString()
@@ -61,6 +60,15 @@ angular.module 'spicyPartyApp'
     else
       returnString = minutes + ' minutes ago'
     return  returnString
+  $scope.convertToSec = (ms)->
+    return parseInt(ms / 1000)
+  $scope.avatarURL = (urlname)->
+    if urlname is 'flame'
+      urlname = 'flameprincess'
+    else if urlname is 'princessbubblegum'
+      urlname = 'pb'
+    url = "http://i.cdn.turner.com/toon/games/adventuretime/adventure-time-battle-party/assets/img/champions-icon-" + urlname + ".jpg"
+    return url
   $scope.goTo = (location)->
     $state.go(location)
   $scope.searchPlayer('spicy wyatt zebra')

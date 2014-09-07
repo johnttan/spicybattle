@@ -49,22 +49,27 @@
               .ui.center.aligned.header  {{computeLast(game._date)}} | {{game._date}}
               .ui.center.aligned.header {{game.balanceType}} | {{gameWin(game)}} ({{game.elo}}) | {{game.playerName}} lvl {{game.level}} | {{game.kills + '/' + game.deaths + '/' + game.assists}}
               .ui.grid
-                .two.column.row
-                  .eight.wide.right.aligned.column
+                .three.column.row
+                  .four.wide.right.aligned.column
+                      img.rounded.ui.image(ng-src="{{avatarURL(game.playerName)}}")
+                  .four.wide.left.aligned.column
+                    .ui.small.images
+                      img.rounded.ui.image(ng-src="{{avatarURL(game.teammate1)}}")
+                      img.rounded.ui.image(ng-src="{{avatarURL(game.teammate2)}}")
+                  .eight.wide.left.aligned.column
                     div {{backpackBuild(game)}}
                     div with {{game.teammate2}} and {{game.teammate1}}
                     div score : {{game.score}}
                     div towers : {{game.towers}}
                     div minions : {{game.minions}}
                     div jungle : {{game.jungleMobs}}
-                  .eight.wide.column
                     div winning team elo  : {{game.winTeamElo}}
                     div losing team elo : {{game.loseTeamElo}}
                     div largest killing spree : {{game.largestSpree}}
                     div damage dealt : {{game.damageDealtTotal}}
                     div magic damage dealt : {{game.damageDealtSpell}}
                     div physical damage dealt : {{game.damageDealtPhysical}}
-                    div time dead : {{game.timeDead}}
+                    div time dead : {{convertToSec(game.timeDead) + ' seconds'}}
                     div disconnected : {{!game.connected}}
 
           //- div {{playerData}}
