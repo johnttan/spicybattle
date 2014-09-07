@@ -1,7 +1,7 @@
 'use strict'
 # To to refactor out the big functions.
 angular.module 'spicyPartyApp'
-.controller 'MainCtrl', ($scope, $http, Recent, socket, $location, $state, $stateParams) ->
+.controller 'MainCtrl', ($scope, $http, Recent, $location, $state, $stateParams) ->
   $scope.search = {}
   $scope.recentSearches = Recent.getRecent()
   $scope.addRecent = Recent.addRecent
@@ -94,7 +94,7 @@ angular.module 'spicyPartyApp'
     if $scope.profile
       playerName = $scope.convertName($scope.profile.playerName)
       $state.go(location, {player: playerName})
-      
+
   if $stateParams.player
     playerName = $scope.convertName($stateParams.player, true)
     console.log(playerName)

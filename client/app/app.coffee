@@ -4,7 +4,6 @@ angular.module 'spicyPartyApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
-  'btford.socket-io',
   'ui.router',
   'ui.bootstrap',
   'LocalStorageModule'
