@@ -5,15 +5,15 @@
     .three.column.row
       .four.wide.right.aligned.column
         .ui.rounded.image 
-          a.ui.header {{game.playerName}} lvl {{game.level}}
+          .ui.purple.header {{game.playerName}} lvl {{game.level}}
           img(ng-src="{{avatarURL(game.playerName)}}")
       .four.wide.left.aligned.column
         .ui.header Teammates
         .ui.small.rounded.image
-          a.ui.header {{game.teammate1}}
+          .ui.purple.header {{game.teammate1}}
           img(ng-src="{{avatarURL(game.teammate1)}}")
         .ui.small.rounded.image
-          a.ui.header {{game.teammate2}}
+          .ui.purple.header {{game.teammate2}}
           img(ng-src="{{avatarURL(game.teammate2)}}")
       .four.wide.right.aligned.column
         .ui.small.header build :

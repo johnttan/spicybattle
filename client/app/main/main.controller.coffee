@@ -23,7 +23,7 @@ angular.module 'spicyPartyApp'
     belt = belt.join(' ')
     build = game.item1 + '/' + game.item2 + '/' + game.item3 + '/' + game.item4 + '/' + game.item5
     return belt + '  ' + build
-  loadPlayerData = do(scope=$scope, state = $state)->
+  loadPlayerData = do(scope=$scope, state = $state, location=$location)->
     return (playerData)->
       console.log(playerData)
       scope.profile = playerData.profile
@@ -31,7 +31,8 @@ angular.module 'spicyPartyApp'
       scope.playerData = playerData
       playerName = $scope.convertName(playerData.profile.playerName)
       scope.recentSearches = $scope.addRecent(playerName, playerData)
-      state.transitionTo('main.matches', {player: playerName})
+      state.go('main.matches', {player: playerName})
+      location.path('/' + playerName + '/matches')
   $scope.searchPlayer = (playerName)->
     if playerName
       playerName = $scope.convertName(playerName)
@@ -89,7 +90,11 @@ angular.module 'spicyPartyApp'
     url = "http://i.cdn.turner.com/toon/games/adventuretime/adventure-time-battle-party/assets/img/champions-icon-" + urlname + ".jpg"
     return url
   $scope.goTo = (location)->
-    $state.go(location)
+    console.log($state.current)
+    if $scope.profile
+      playerName = $scope.convertName($scope.profile.playerName)
+      $state.go(location, {player: playerName})
+      
   if $stateParams.player
     playerName = $scope.convertName($stateParams.player, true)
     console.log(playerName)
