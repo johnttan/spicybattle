@@ -25,7 +25,6 @@ angular.module 'spicyPartyApp'
     return belt + '  ' + build
   loadPlayerData = do(scope=$scope, state = $state, location=$location)->
     return (playerData)->
-      console.log(playerData)
       scope.profile = playerData.profile
       scope.gameLog = playerData.profile.gameLog
       scope.playerData = playerData
@@ -90,12 +89,10 @@ angular.module 'spicyPartyApp'
     url = "http://i.cdn.turner.com/toon/games/adventuretime/adventure-time-battle-party/assets/img/champions-icon-" + urlname + ".jpg"
     return url
   $scope.goTo = (location)->
-    console.log($state.current)
     if $scope.profile
       playerName = $scope.convertName($scope.profile.playerName)
       $state.go(location, {player: playerName})
 
   if $stateParams.player
     playerName = $scope.convertName($stateParams.player, true)
-    console.log(playerName)
     $scope.searchPlayer(playerName)
