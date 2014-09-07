@@ -1,9 +1,11 @@
 'use strict'
 
 angular.module 'spicyPartyApp'
-.controller 'MainCtrl', ($scope, $http, socket, $location, $state, $stateParams) ->
+.controller 'MainCtrl', ($scope, $http, Recent, socket, $location, $state, $stateParams) ->
   $scope.search = {}
-  $scope.recentSearches = {}
+  $scope.recentSearches = Recent.getRecent()
+  console.log Recent
+  $scope.addRecent = Recent.addRecent
   $scope.gameWin = (game)->
     if parseInt(game.elo) > 0
       return 'WIN'
@@ -24,10 +26,8 @@ angular.module 'spicyPartyApp'
         $scope.profile = playerData.profile
         $scope.gameLog = playerData.profile.gameLog
         $scope.playerData = playerData
-        $scope.recentSearches[playerData.profile.playerName] = {
-          time: new Date()
-        }
-        $state.go('main.matches', {player: playerName})
+        $scope.recentSearches = $scope.addRecent(playerData.profile.playerName)
+        $state.transitionTo('main.matches', {player: playerName})
         $scope.$digest()
       )
 
@@ -38,13 +38,11 @@ angular.module 'spicyPartyApp'
           $scope.profile = playerData.profile
           $scope.gameLog = playerData.profile.gameLog
           $scope.playerData = playerData
-          $scope.recentSearches[playerData.profile.playerName] = {
-            time: new Date()
-          }
+          $scope.recentSearches = $scope.addRecent(playerData.profile.playerName)
           $scope.lastUpdated = new Date()
         )
   $scope.clearHistory = ->
-    $scope.recentSearches = {}
+    $scope.recentSearches = Recent.clearHistory()
   $scope.checkLocation = (location)->
     return '/' +$location.path().split('/')[2] == location
   $scope.computeLast = (last)->
