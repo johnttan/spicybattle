@@ -1,66 +1,70 @@
-.ui.header Search Player
-.ui.action.input
-  input(ng-model="search.player")
-  .ui.button(ng-click="searchPlayer(search.player)") Search Player
-.ui.small.header Recently Viewed
-.ui.small.button(ng-click="clearHistory()") Clear History
-.ui.list
-  .item(ng-repeat="(name, object) in recentSearches" )
-    .content
-      a.header(ng-click="searchPlayer(name)") {{name}} {{object.time | date : short}}
-.ui.divider
-div(ng-show="profile")
-  .ui.button(ng-click="refreshPlayer()") Refresh Data 
-  span Last Updated : {{lastUpdated | date : short}}
-  .ui.segment
-    .ui.header {{profile.playerName}} | {{profile.elo}} ELO
-    .ui.grid
-      .four.column.row
-        .two.wide.right.aligned.column
-          div Tier : 
-          div Wins : 
-          div Losses : 
-          div Knockouts : 
-          div Defeats : 
-          div Assists : 
-          div Towers : 
-          div Largest Spree : 
-          div Minions : 
-          div Jungle Minions : 
-          div Highest Score : 
-        .two.wide.left.aligned.column
-          div {{tierConvert(profile.tier)}}
-          div {{profile.winsPVP}}
-          div {{profile.playsPVP - profile.winsPVP}}
-          div {{profile.kills}}
-          div {{profile.deaths}}
-          div {{profile.assists}}
-          div {{profile.towers}}
-          div {{profile.largestSpree}}
-          div {{profile.minions}}
-          div {{profile.jungleMobs}}
-          div {{profile.scoreHighest}}
-        .twelve.wide.column
-          .ui.item(ng-repeat="game in gameLog")
-            .ui.header {{game._date}}
-            .ui.header {{game.balanceType}} | {{gameWin(game)}} ({{game.elo}}) | {{game.playerName}} lvl {{game.level}} {{backpackBuild(game)}}
+.ui.segment
+  .ui.grid
+    .two.column.row
+      .column.ui.vertical.menu#sidebar
+          .ui.action.input#searchBox
+            input(ng-model="search.player")
+            .ui.button(ng-click="searchPlayer(search.player)") Search
+          .ui.header {{profile.playerName}} | {{profile.elo}} ELO
+          .item.ui.button(ng-click="refreshPlayer()") Refresh Data 
+          .item(ng-show="lastUpdated") Last Updated : {{computeLast(lastUpdated) | date:short}}
+          a.item.header.red(ng-click="goTo('main.matches')" ng-class="{active:checkLocation('/matches')}") Match History
+          a.item.header.green(ng-click="goTo('main.profile')" ng-class="{active:checkLocation('/profile')}") Profile
+          .item.header Recent Searches
+            .menu
+              a.item(ng-repeat="(name, object) in recentSearches" ng-click="searchPlayer(name)") {{name}} {{object.time | date:short}}
+            span.ui.small.button(ng-click="clearHistory()") Clear
+      .column#dataView
+          div(ng-show="checkLocation('/profile')")
             .ui.grid
-              .two.column.row
-                .column
-                  div with {{game.teammate2}} and {{game.teammate1}}
-                  div score : {{game.score}}
-                  div K/D/A : {{game.kills + '/' + game.deaths + '/' + game.assists}}
-                  div towers : {{game.towers}}
-                  div minions : {{game.minions}}
-                  div jungle : {{game.jungleMobs}}
-                .column
-                  div winning team elo  : {{game.winTeamElo}}
-                  div losing team elo : {{game.loseTeamElo}}
-                  div largest killing spree : {{game.largestSpree}}
-                  div damage dealt : {{game.damageDealtTotal}}
-                  div magic damage dealt : {{game.damageDealtSpell}}
-                  div physical damage dealt : {{game.damageDealtPhysical}}
-                  div time dead : {{game.timeDead}}
-                  div disconnected : {{!game.connected}}
+              .row
+                .four.wide.right.aligned.column
+                  div Tier : 
+                  div Wins : 
+                  div Losses : 
+                  div Knockouts : 
+                  div Defeats : 
+                  div Assists : 
+                  div Towers : 
+                  div Largest Spree : 
+                  div Minions : 
+                  div Jungle Minions : 
+                  div Highest Score : 
+                .four.wide.left.aligned.column
+                  div {{tierConvert(profile.tier)}}
+                  div {{profile.winsPVP}}
+                  div {{profile.playsPVP - profile.winsPVP}}
+                  div {{profile.kills}}
+                  div {{profile.deaths}}
+                  div {{profile.assists}}
+                  div {{profile.towers}}
+                  div {{profile.largestSpree}}
+                  div {{profile.minions}}
+                  div {{profile.jungleMobs}}
+                  div {{profile.scoreHighest}}
+                .twelve.wide.column
+          div(ng-show="checkLocation('/matches')")
+            .ui.header Match History
+            .ui.segment(ng-repeat="game in gameLog")
+              .ui.center.aligned.header  {{computeLast(game._date)}} | {{game._date}}
+              .ui.center.aligned.header {{game.balanceType}} | {{gameWin(game)}} ({{game.elo}}) | {{game.playerName}} lvl {{game.level}} | {{game.kills + '/' + game.deaths + '/' + game.assists}}
+              .ui.grid
+                .two.column.row
+                  .eight.wide.right.aligned.column
+                    div {{backpackBuild(game)}}
+                    div with {{game.teammate2}} and {{game.teammate1}}
+                    div score : {{game.score}}
+                    div towers : {{game.towers}}
+                    div minions : {{game.minions}}
+                    div jungle : {{game.jungleMobs}}
+                  .eight.wide.column
+                    div winning team elo  : {{game.winTeamElo}}
+                    div losing team elo : {{game.loseTeamElo}}
+                    div largest killing spree : {{game.largestSpree}}
+                    div damage dealt : {{game.damageDealtTotal}}
+                    div magic damage dealt : {{game.damageDealtSpell}}
+                    div physical damage dealt : {{game.damageDealtPhysical}}
+                    div time dead : {{game.timeDead}}
+                    div disconnected : {{!game.connected}}
 
-  //- div {{playerData}}
+          //- div {{playerData}}

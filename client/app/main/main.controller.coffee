@@ -1,11 +1,11 @@
 'use strict'
 
 angular.module 'spicyPartyApp'
-.controller 'MainCtrl', ($scope, $http, socket) ->
+.controller 'MainCtrl', ($scope, $http, socket, $location, $state) ->
   $scope.search = {}
   $scope.recentSearches = {}
   $scope.gameWin = (game)->
-    if parseInt(game.elo)
+    if parseInt(game.elo) > 0
       return 'WIN'
     else
       return 'LOSS'
@@ -26,6 +26,7 @@ angular.module 'spicyPartyApp'
         $scope.recentSearches[playerData.profile.playerName] = {
           time: new Date()
         }
+        $scope.$digest()
       )
 
   $scope.refreshPlayer = ->
@@ -38,4 +39,28 @@ angular.module 'spicyPartyApp'
           $scope.recentSearches[playerData.profile.playerName] = {
             time: new Date()
           }
+          $scope.lastUpdated = new Date()
         )
+  $scope.clearHistory = ->
+    $scope.recentSearches = {}
+  $scope.checkLocation = (location)->
+    return $location.path() == location
+  $scope.computeLast = (last)->
+    if typeof last is 'string'
+      last = new Date(last)
+      last = last.getTime()
+      # last = new Date(last.getTime() - (1000 * 60 * 60 * 5))
+    since = Date.now()
+    console.log(last, since)
+    since = since - last
+    totalMinutes = parseInt(since/1000/60)
+    hours = parseInt(Math.floor(totalMinutes/60)).toString()
+    minutes = (totalMinutes % 60).toString()
+    if parseInt(hours) > 0
+      returnString = hours + ' hours ' + minutes + ' minutes ago'
+    else
+      returnString = minutes + ' minutes ago'
+    return  returnString
+  $scope.goTo = (location)->
+    $state.go(location)
+  $scope.searchPlayer('spicy wyatt zebra')
