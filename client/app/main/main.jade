@@ -12,7 +12,7 @@
           a.item.header.green(ng-click="goTo('main.profile')" ng-class="{active:checkLocation('/profile')}") Profile
           .item.header Recent Searches
             .menu
-              a.item(ng-repeat="(name, object) in recentSearches" ng-click="searchPlayer(name)") {{name}} {{object.time | date:short}}
+              a.item(ng-repeat="(name, object) in recentSearches" ng-click="searchPlayer(name)") {{convertName(name, true)}} {{object.time | date:short}}
             span.ui.small.button(ng-click="clearHistory()") Clear
       .column#dataView
           div(ng-show="checkLocation('/profile')")

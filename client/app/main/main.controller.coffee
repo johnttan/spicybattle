@@ -4,7 +4,6 @@ angular.module 'spicyPartyApp'
 .controller 'MainCtrl', ($scope, $http, Recent, socket, $location, $state, $stateParams) ->
   $scope.search = {}
   $scope.recentSearches = Recent.getRecent()
-  console.log Recent
   $scope.addRecent = Recent.addRecent
   $scope.gameWin = (game)->
     if parseInt(game.elo) > 0
@@ -13,6 +12,11 @@ angular.module 'spicyPartyApp'
       return 'LOSS'
   $scope.tierConvert = (tier)->
     return parseInt(tier) + 1
+  $scope.convertName = (playerName, decode)->
+    if decode
+      return playerName.split('.').join(' ')
+    else
+      return playerName.split(' ').join('.')
   $scope.backpackBuild = (game)->
     belt = game.belt.split('_')
     belt[0] = ''
@@ -25,12 +29,12 @@ angular.module 'spicyPartyApp'
       scope.profile = playerData.profile
       scope.gameLog = playerData.profile.gameLog
       scope.playerData = playerData
-      playerName = playerData.profile.playerName.split(' ').join('.')
+      playerName = $scope.convertName(playerData.profile.playerName)
       scope.recentSearches = $scope.addRecent(playerName, playerData)
       state.transitionTo('main.matches', {player: playerName})
   $scope.searchPlayer = (playerName)->
     if playerName
-      playerName = playerName.split(' ').join('.')
+      playerName = $scope.convertName(playerName)
       playerCache = Recent.checkRecent(playerName)
       if playerCache
         console.log('cache found')
@@ -45,7 +49,7 @@ angular.module 'spicyPartyApp'
           $scope.profile = playerData.profile
           $scope.gameLog = playerData.profile.gameLog
           $scope.playerData = playerData
-          playerName = playerData.profile.playerName.split(' ').join('.')
+          playerName = $scope.convertName(playerData.profile.playerName)
           $scope.recentSearches = $scope.addRecent(playerName, playerData)
           $scope.lastUpdated = new Date()
         )
@@ -87,6 +91,6 @@ angular.module 'spicyPartyApp'
   $scope.goTo = (location)->
     $state.go(location)
   if $stateParams.player
-    playerName = $stateParams.player.split('.').join(' ')
+    playerName = $scope.convertName($stateParams.player, true)
     console.log(playerName)
     $scope.searchPlayer(playerName)
