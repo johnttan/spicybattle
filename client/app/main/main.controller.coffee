@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module 'spicyPartyApp'
-.controller 'MainCtrl', ($scope, $http, socket, $location, $state) ->
+.controller 'MainCtrl', ($scope, $http, socket, $location, $state, $stateParams) ->
   $scope.search = {}
   $scope.recentSearches = {}
   $scope.gameWin = (game)->
@@ -18,7 +18,8 @@ angular.module 'spicyPartyApp'
     build = game.item1 + '/' + game.item2 + '/' + game.item3 + '/' + game.item4 + '/' + game.item5
     return belt + '  ' + build
   $scope.searchPlayer = (playerName)->
-    $http.get("/api/data/" + playerName.split(' ').join('.')).success(
+    playerName = playerName.split(' ').join('.')
+    $http.get("/api/data/" + playerName).success(
       (playerData)->
         $scope.profile = playerData.profile
         $scope.gameLog = playerData.profile.gameLog
@@ -26,6 +27,7 @@ angular.module 'spicyPartyApp'
         $scope.recentSearches[playerData.profile.playerName] = {
           time: new Date()
         }
+        $state.go('main.matches', {player: playerName})
         $scope.$digest()
       )
 
@@ -44,7 +46,7 @@ angular.module 'spicyPartyApp'
   $scope.clearHistory = ->
     $scope.recentSearches = {}
   $scope.checkLocation = (location)->
-    return $location.path() == location
+    return '/' +$location.path().split('/')[2] == location
   $scope.computeLast = (last)->
     if typeof last is 'string'
       last = new Date(last)
@@ -71,4 +73,8 @@ angular.module 'spicyPartyApp'
     return url
   $scope.goTo = (location)->
     $state.go(location)
-  $scope.searchPlayer('spicy wyatt zebra')
+  if $stateParams.player
+    playerName = $stateParams.player.split('.').join(' ')
+    console.log(playerName)
+    $scope.searchPlayer(playerName)
+  # $scope.searchPlayer('spicy wyatt zebra') 
