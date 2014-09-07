@@ -19,17 +19,22 @@ angular.module 'spicyPartyApp'
     belt = belt.join(' ')
     build = game.item1 + '/' + game.item2 + '/' + game.item3 + '/' + game.item4 + '/' + game.item5
     return belt + '  ' + build
+  loadPlayerData = do(scope=$scope, state = $state)->
+    return (playerData)->
+      console.log(playerData)
+      scope.profile = playerData.profile
+      scope.gameLog = playerData.profile.gameLog
+      scope.playerData = playerData
+      scope.recentSearches = $scope.addRecent(playerData.profile.playerName, playerData)
+      state.transitionTo('main.matches', {player: playerName})
   $scope.searchPlayer = (playerName)->
-    playerName = playerName.split(' ').join('.')
-    $http.get("/api/data/" + playerName).success(
-      (playerData)->
-        $scope.profile = playerData.profile
-        $scope.gameLog = playerData.profile.gameLog
-        $scope.playerData = playerData
-        $scope.recentSearches = $scope.addRecent(playerData.profile.playerName)
-        $state.transitionTo('main.matches', {player: playerName})
-        $scope.$digest()
-      )
+    playerCache = Recent.checkRecent(playerName)
+    if playerCache
+      console.log('cache found')
+      loadPlayerData(playerCache)
+    else
+      playerName = playerName.split(' ').join('.')
+      $http.get("/api/data/" + playerName).success(loadPlayerData)
 
   $scope.refreshPlayer = ->
     if $scope.profile
@@ -38,7 +43,7 @@ angular.module 'spicyPartyApp'
           $scope.profile = playerData.profile
           $scope.gameLog = playerData.profile.gameLog
           $scope.playerData = playerData
-          $scope.recentSearches = $scope.addRecent(playerData.profile.playerName)
+          $scope.recentSearches = $scope.addRecent(playerData.profile.playerName, playerData)
           $scope.lastUpdated = new Date()
         )
   $scope.clearHistory = ->
@@ -54,14 +59,21 @@ angular.module 'spicyPartyApp'
     since = since - last
     totalMinutes = parseInt(since/1000/60)
     hours = parseInt(Math.floor(totalMinutes/60)).toString()
+    days = parseInt(Math.floor(hours/24)).toString()
     minutes = (totalMinutes % 60).toString()
-    if parseInt(hours) > 0
+    if parseInt(days) > 0
+      hours = (parseInt(hours) % 24).toString()
+      returnString = days + ' days ' + hours + ' hours ago'
+    else if parseInt(hours) > 0
       returnString = hours + ' hours ' + minutes + ' minutes ago'
     else
       returnString = minutes + ' minutes ago'
     return  returnString
   $scope.convertToSec = (ms)->
     return parseInt(ms / 1000)
+  $scope.changeToDate = (dateString)->
+    dateO = new Date(dateString)
+    return dateO.getTime()
   $scope.avatarURL = (urlname)->
     if urlname is 'flame'
       urlname = 'flameprincess'
@@ -75,4 +87,3 @@ angular.module 'spicyPartyApp'
     playerName = $stateParams.player.split('.').join(' ')
     console.log(playerName)
     $scope.searchPlayer(playerName)
-  # $scope.searchPlayer('spicy wyatt zebra') 
