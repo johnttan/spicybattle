@@ -1,5 +1,5 @@
 'use strict'
-
+# To to refactor out the big functions.
 angular.module 'spicyPartyApp'
 .controller 'MainCtrl', ($scope, $http, Recent, socket, $location, $state, $stateParams) ->
   $scope.search = {}

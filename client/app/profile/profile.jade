@@ -1,2 +1,27 @@
-.col-md-12
-    | This is the profile view.
+.ui.grid
+  .row
+    .four.wide.right.aligned.column
+      .ui.header Tier : 
+      .ui.header Wins : 
+      .ui.header Losses : 
+      .ui.header Knockouts : 
+      .ui.header Defeats : 
+      .ui.header Assists : 
+      .ui.header Towers : 
+      .ui.header Largest Spree : 
+      .ui.header Minions : 
+      .ui.header Jungle Minions : 
+      .ui.header Highest Score : 
+    .four.wide.left.aligned.column
+      .ui.header {{tierConvert(profile.tier)}}
+      .ui.header {{profile.winsPVP}}
+      .ui.header {{profile.playsPVP - profile.winsPVP}}
+      .ui.header {{profile.kills}}
+      .ui.header {{profile.deaths}}
+      .ui.header {{profile.assists}}
+      .ui.header {{profile.towers}}
+      .ui.header {{profile.largestSpree}}
+      .ui.header {{profile.minions}}
+      .ui.header {{profile.jungleMobs}}
+      .ui.header {{profile.scoreHighest}}
+    .twelve.wide.column

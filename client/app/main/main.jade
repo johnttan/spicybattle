@@ -15,79 +15,9 @@
               a.item(ng-repeat="(name, object) in recentSearches" ng-click="searchPlayer(name)") {{convertName(name, true)}} {{object.time | date:short}}
             span.ui.small.button(ng-click="clearHistory()") Clear
       .column#dataView
-          div(ng-show="checkLocation('/profile')")
-            .ui.grid
-              .row
-                .four.wide.right.aligned.column
-                  .ui.header Tier : 
-                  .ui.header Wins : 
-                  .ui.header Losses : 
-                  .ui.header Knockouts : 
-                  .ui.header Defeats : 
-                  .ui.header Assists : 
-                  .ui.header Towers : 
-                  .ui.header Largest Spree : 
-                  .ui.header Minions : 
-                  .ui.header Jungle Minions : 
-                  .ui.header Highest Score : 
-                .four.wide.left.aligned.column
-                  .ui.header {{tierConvert(profile.tier)}}
-                  .ui.header {{profile.winsPVP}}
-                  .ui.header {{profile.playsPVP - profile.winsPVP}}
-                  .ui.header {{profile.kills}}
-                  .ui.header {{profile.deaths}}
-                  .ui.header {{profile.assists}}
-                  .ui.header {{profile.towers}}
-                  .ui.header {{profile.largestSpree}}
-                  .ui.header {{profile.minions}}
-                  .ui.header {{profile.jungleMobs}}
-                  .ui.header {{profile.scoreHighest}}
-                .twelve.wide.column
-          div(ng-show="checkLocation('/matches')")
-            .ui.segment(ng-repeat="game in gameLog")
-              .ui.inverted.top.attached.center.aligned.red.large.header {{game.balanceType}} | {{gameWin(game)}} ({{game.elo}} ELO) | KDA {{game.kills + '/' + game.deaths + '/' + game.assists}} 
-              .ui.center.aligned.header  {{computeLast(game._date)}} | {{changeToDate(game._date) | date:shortDate}}
-              .ui.grid
-                .three.column.row
-                  .four.wide.right.aligned.column
-                    .ui.rounded.image 
-                      a.ui.header {{game.playerName}} lvl {{game.level}}
-                      img(ng-src="{{avatarURL(game.playerName)}}")
-                  .four.wide.left.aligned.column
-                    .ui.header Teammates
-                    .ui.small.rounded.image
-                      a.ui.header {{game.teammate1}}
-                      img(ng-src="{{avatarURL(game.teammate1)}}")
-                    .ui.small.rounded.image
-                      a.ui.header {{game.teammate2}}
-                      img(ng-src="{{avatarURL(game.teammate2)}}")
-                  .four.wide.right.aligned.column
-                    .ui.small.header build :
-                    .ui.small.header score :
-                    .ui.small.header towers :
-                    .ui.small.header minions :
-                    .ui.small.header jungle :
-                    .ui.small.header winning team elo :
-                    .ui.small.header losing team elo :
-                    .ui.small.header largest spree :
-                    .ui.small.header damage dealt :
-                    .ui.small.header magic damage :
-                    .ui.small.header physical damage :
-                    .ui.small.header time dead :
-                    .ui.small.header disconnected :
-                  .four.wide.left.aligned.column
-                    .ui.small.header {{backpackBuild(game)}}
-                    .ui.small.header {{game.score}}
-                    .ui.small.header {{game.towers}}
-                    .ui.small.header {{game.minions}}
-                    .ui.small.header {{game.jungleMobs}}
-                    .ui.small.header {{game.winTeamElo}}
-                    .ui.small.header {{game.loseTeamElo}}
-                    .ui.small.header {{game.largestSpree}}
-                    .ui.small.header {{game.damageDealtTotal}}
-                    .ui.small.header {{game.damageDealtSpell}}
-                    .ui.small.header {{game.damageDealtPhysical}}
-                    .ui.small.header {{convertToSec(game.timeDead) + ' seconds'}}
-                    .ui.small.header {{!game.connected}}
+        div(ng-show="checkLocation('/profile')")
+          include ../profile/profile.jade
+        div(ng-show="checkLocation('/matches')")
+          include ../matches/matches.jade
 
           //- div {{playerData}}
