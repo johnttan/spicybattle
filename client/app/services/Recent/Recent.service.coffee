@@ -6,8 +6,14 @@ angular.module 'spicyPartyApp'
 		rec.searches = localStorageService.get('searches')
 		if not rec.searches
 			rec.searches = {}
-		rec.addRecent = (playerName, playerData)->
-			rec.searches[playerName] = {time: new Date(), data: playerData}
+		rec.addRecent = (playerName, playerData, leader)->
+			display = false
+			if not leader
+				display = true
+			if playerName in Object.keys(rec.searches)
+				display = true
+			recentData = {time: new Date(), data: playerData, display: display}
+			rec.searches[playerName] = recentData
 			localStorageService.set('searches', rec.searches)
 			return rec.searches
 		rec.checkRecent = (playerName)->

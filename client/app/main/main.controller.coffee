@@ -101,10 +101,11 @@ angular.module 'spicyPartyApp'
       $location.path('/' + playerName + location.split('.')[1])
     
     if location is 'main.leaderboard'
+      $scope.leaders = []
       $http.get("/api/data").success(
         (allData)->
           _.each(allData, (el)->
-              $scope.recentSearches = $scope.addRecent($scope.convertName(el.profile.playerName), el)
+              $scope.addRecent($scope.convertName(el.profile.playerName), el ,true)
               $scope.leaders.push({name: el.profile.playerName, elo: el.profile.elo})
             )
         )

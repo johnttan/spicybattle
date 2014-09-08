@@ -15,8 +15,6 @@ var errorHandler = require('errorhandler');
 var path = require('path');
 var config = require('./environment');
 var passport = require('passport');
-var session = require('express-session');
-var mongoStore = require('connect-mongo')(session);
 var mongoose = require('mongoose');
 var cors = require('cors');
 module.exports = function(app) {
@@ -32,15 +30,6 @@ module.exports = function(app) {
   app.use(passport.initialize());
   app.use(cors());
 
-  // Persist sessions with mongoStore
-  // We need to enable sessions for passport twitter because its an oauth 1.0 strategy
-  app.use(session({
-    secret: config.secrets.session,
-    resave: true,
-    saveUninitialized: true,
-    store: new mongoStore({ mongoose_connection: mongoose.connection })
-  }));
-  
   if ('production' === env) {
     app.use(favicon(path.join(config.root, 'public', 'favicon.ico')));
     app.use(express.static(path.join(config.root, 'public')));
