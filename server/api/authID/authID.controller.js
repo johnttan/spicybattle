@@ -32,7 +32,6 @@ function cb(authID, body, res){
 }
 // Creates a new authID in the DB.
 exports.create = function(req, res) {
-  res.send(400)
   if((typeof req.body.playerName) == 'string' && (typeof req.body.authID) == 'string' && (typeof req.body.tegID) == 'string'){
     req.body.playerName = req.body.playerName.toUpperCase()
     getData(req.body, res, cb(req.body.authID, req.body, res));
