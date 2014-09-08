@@ -1,3 +1,3 @@
 .ui.huge.header Leaderboard
 .ui.ordered.list
-    .item(ng-repeat="leader in leaders | orderBy:'elo':true"){{leader.name}} | {{leader.elo}}
+    a.item(ng-repeat="leader in leaders | orderBy:'elo':true" ng-click="searchPlayer(leader.name)"){{leader.name}} | {{leader.elo}}

@@ -96,18 +96,20 @@ angular.module 'spicyPartyApp'
       $location.path('/' + playerName + location.split('.')[1])
     
     if location == 'main.leaderboard'
-      if $scope.profile
-        playerParam = $scope.convertName($scope.profile.playerName)
-      else
-        playerParam = 'beta'
-      $state.go(location, {player: playerParam})
       $http.get("/api/data").success(
         (allData)->
+          console.log(allData)
+          $scope.leaders = []
           _.each(allData, (el)->
               $scope.recentSearches = $scope.addRecent($scope.convertName(el.profile.playerName), el)
               $scope.leaders.push({name: el.profile.playerName, elo: el.profile.elo})
             )
         )
+      if $scope.profile
+        playerParam = $scope.convertName($scope.profile.playerName)
+      else
+        playerParam = 'beta'
+      $state.go(location, {player: playerParam})
 
   if $stateParams.player and $stateParams.player isnt 'beta'
     playerName = $scope.convertName($stateParams.player, true)
