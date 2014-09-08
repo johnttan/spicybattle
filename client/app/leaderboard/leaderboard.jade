@@ -1,3 +1,3 @@
-.ui.huge.header Leaderboard
-.ui.ordered.list
+.ui.huge.header Leaderboard of Testers
+.ui.huge.ordered.list
     a.item(ng-repeat="leader in leaders | orderBy:'elo':true" ng-click="searchPlayer(leader.name)"){{leader.name}} | {{leader.elo}}
