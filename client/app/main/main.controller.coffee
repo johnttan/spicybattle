@@ -26,6 +26,7 @@ angular.module 'spicyPartyApp'
     return belt + '  ' + build
   loadPlayerData = do(scope=$scope, state = $state, location=$location)->
     return (playerData)->
+      scope.error = ''
       scope.profile = playerData.profile
       scope.gameLog = playerData.profile.gameLog
       scope.playerData = playerData
@@ -33,6 +34,9 @@ angular.module 'spicyPartyApp'
       scope.recentSearches = $scope.addRecent(playerName, playerData)
       state.go('main.matches', {player: playerName})
       location.path('/' + playerName + '/matches')
+  errorSearch = do(scope=$scope)->
+    return ->
+      scope.error = 'No player found'
   $scope.searchPlayer = (playerName)->
     if playerName
       playerName = $scope.convertName(playerName)
@@ -41,12 +45,13 @@ angular.module 'spicyPartyApp'
         console.log('cache found')
         loadPlayerData(playerCache)
       else
-        $http.get("/api/data/" + playerName).success(loadPlayerData)
+        $http.get("/api/data/" + playerName).success(loadPlayerData).error(errorSearch)
 
   $scope.refreshPlayer = ->
     if $scope.profile
       $http.put("/api/data/" + $scope.profile.playerName.split(' ').join('.')).success(
         (playerData)->
+          $scope.error = ''
           $scope.profile = playerData.profile
           $scope.gameLog = playerData.profile.gameLog
           $scope.playerData = playerData
@@ -57,7 +62,7 @@ angular.module 'spicyPartyApp'
   $scope.clearHistory = ->
     $scope.recentSearches = Recent.clearHistory()
   $scope.checkLocation = (location)->
-    return '/' +$location.path().split('/')[2] == location
+    return '/' +$location.path().split('/')[2] is location
   $scope.computeLast = (last)->
     if typeof last is 'string'
       last = new Date(last)
@@ -95,11 +100,9 @@ angular.module 'spicyPartyApp'
       $state.go(location, {player: playerName})
       $location.path('/' + playerName + location.split('.')[1])
     
-    if location == 'main.leaderboard'
+    if location is 'main.leaderboard'
       $http.get("/api/data").success(
         (allData)->
-          console.log(allData)
-          $scope.leaders = []
           _.each(allData, (el)->
               $scope.recentSearches = $scope.addRecent($scope.convertName(el.profile.playerName), el)
               $scope.leaders.push({name: el.profile.playerName, elo: el.profile.elo})

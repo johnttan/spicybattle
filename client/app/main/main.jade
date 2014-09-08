@@ -7,7 +7,9 @@
           .ui.action.input#searchBox
             input(ng-model="search.player")
             .ui.button.blue(ng-click="searchPlayer(search.player)") Search
+          .ui.header(ng-show="error") {{error}}
           .ui.header {{profile.playerName}} | {{profile.elo}} ELO
+          .ui.small.header Remember to refresh data!
           .item.ui.button.green(ng-click="refreshPlayer()") Refresh Data 
           .item(ng-show="lastUpdated") Last Updated : {{computeLast(lastUpdated) | date:short}}
           a.item.header.red(ng-click="goTo('main.matches')" ng-class="{active:checkLocation('/matches')}") Match History
