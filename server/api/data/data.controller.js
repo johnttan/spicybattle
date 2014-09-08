@@ -41,7 +41,8 @@ exports.update = function(req, res) {
   var playerName = req.params.playerName.split('.').join(' ').toUpperCase();
   Authid.find({'playerName':playerName}, function (err, data) {
     if(err){return console.log(err)}
-    getData(data[0].tegID, data[0].authID, res);
+    console.log('update', data)
+    getData(data[0], res);
   });
 };
 
