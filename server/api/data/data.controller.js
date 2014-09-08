@@ -6,12 +6,12 @@ var Authid = require('../authID/authID.model');
 var getData = require('../helperFuncs/getData.js').func
 
 // Get list of datas
-exports.index = function(req, res) {
-  Data.find(function (err, datas) {
-    if(err) { return handleError(res, err); }
-    return res.json(200, datas);
-  });
-};
+// exports.index = function(req, res) {
+//   Data.find(function (err, datas) {
+//     if(err) { return handleError(res, err); }
+//     return res.json(200, datas);
+//   });
+// };
 
 // Get a single data
 exports.show = function(req, res) {
@@ -25,16 +25,16 @@ exports.show = function(req, res) {
   });
 };
 
-// Creates a new data in the DB.
-exports.create = function(req, res) {
-  // console.log(req.body);
-  Authid.update({'authID': req.body.authID}, req.body, {'upsert': true}, function(err, numAffected){
-    if(err){console.log(err)}
-    else{
-      getData(req.tegID, req.authID);
-    }
-  })
-};
+// // Creates a new data in the DB.
+// exports.create = function(req, res) {
+//   // console.log(req.body);
+//   Authid.update({'authID': req.body.authID}, req.body, {'upsert': true}, function(err, numAffected){
+//     if(err){console.log(err)}
+//     else{
+//       getData(req.tegID, req.authID);
+//     }
+//   })
+// };
 
 // Updates an existing data in the DB.
 exports.update = function(req, res) {
@@ -45,17 +45,6 @@ exports.update = function(req, res) {
   });
 };
 
-// Deletes a data from the DB.
-exports.destroy = function(req, res) {
-  Data.findById(req.params.id, function (err, data) {
-    if(err) { return handleError(res, err); }
-    if(!data) { return res.send(404); }
-    data.remove(function(err) {
-      if(err) { return handleError(res, err); }
-      return res.send(204);
-    });
-  });
-};
 
 function handleError(res, err) {
   return res.send(500, err);

@@ -4,32 +4,42 @@ var _ = require('lodash');
 var Authid = require('./authID.model');
 var getData = require('../helperFuncs/getData.js').func
 // Get list of authIDs
-exports.index = function(req, res) {
-  Authid.find(function (err, authIDs) {
-    if(err) { return handleError(res, err); }
-    return res.json(200, authIDs);
-  });
-};
+// exports.index = function(req, res) {
+//   Authid.find(function (err, authIDs) {
+//     if(err) { return handleError(res, err); }
+//     return res.json(200, authIDs);
+//   });
+// };
 
 // Get a single authID
-exports.show = function(req, res) {
-  Authid.findById(req.params.id, function (err, authID) {
-    if(err) { return handleError(res, err); }
-    if(!authID) { return res.send(404); }
-    return res.json(authID);
-  });
-};
-
+// exports.show = function(req, res) {
+//   Authid.findById(req.params.id, function (err, authID) {
+//     if(err) { return handleError(res, err); }
+//     if(!authID) { return res.send(404); }
+//     return res.json(authID);
+//   });
+// };
+// Returns a callback for getData. This callback updates the authID in database only if getData gets a valid playerData.
+function cb(authID, body, res){
+  return function(){
+    Authid.update({'authID': authID}, body, {'upsert': true}, function(err, numAffected){
+      if(err){console.log(err)}
+      else{
+        res.send(200);
+      }
+    })
+  }
+}
 // Creates a new authID in the DB.
 exports.create = function(req, res) {
-  req.body.playerName = req.body.playerName.toUpperCase()
-  Authid.update({'authID': req.body.authID}, req.body, {'upsert': true}, function(err, numAffected){
-    if(err){console.log(err)}
-    else{
-      getData(req.body.tegID, req.body.authID);
-      res.send(200);
-    }
-  })
+  res.send(400)
+  if((typeof req.body.playerName) == 'string' && (typeof req.body.authID) == 'string' && (typeof req.body.tegID) == 'string'){
+    req.body.playerName = req.body.playerName.toUpperCase()
+    getData(req.body, res, cb(req.body.authID, req.body, res));
+  }else{
+    console.log('error', req.body);
+    res.send(400)
+  }
 };
 
 // Updates an existing authID in the DB.

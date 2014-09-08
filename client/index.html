@@ -43,7 +43,6 @@
       <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
       <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
       <script src="bower_components/lodash/dist/lodash.compat.js"></script>
-      <script src="bower_components/angular-socket-io/socket.js"></script>
       <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
       <script src="bower_components/angular-local-storage/angular-local-storage.js"></script>
       <!-- endbower -->
@@ -52,21 +51,24 @@
         <!-- build:js({.tmp,client}) app/app.js -->
         <script src="app/app.js"></script>
           <!-- injector:js -->
-          <script src="app/account/account.js"></script>
-          <script src="app/account/login/login.js"></script>
-          <script src="app/account/settings/settings.js"></script>
-          <script src="app/account/signup/signup.js"></script>
           <script src="app/admin/admin.js"></script>
           <script src="app/main/main.js"></script>
           <script src="app/matches/matches.js"></script>
           <script src="app/profile/profile.js"></script>
           <script src="app/services/Recent/Recent.js"></script>
-          <script src="components/auth/auth.js"></script>
-          <script src="components/auth/user.js"></script>
           <script src="components/mongoose-error/mongoose-error.js"></script>
           <script src="components/navbar/navbar.js"></script>
-          <script src="components/socket/socket.js"></script>
           <!-- endinjector -->
         <!-- endbuild -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-54538128-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
 </body>
 </html>
