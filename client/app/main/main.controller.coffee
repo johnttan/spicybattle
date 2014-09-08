@@ -5,6 +5,7 @@ angular.module 'spicyPartyApp'
   $scope.search = {}
   $scope.recentSearches = Recent.getRecent()
   $scope.addRecent = Recent.addRecent
+  $scope.leaders = []
   $scope.gameWin = (game)->
     if parseInt(game.elo) > 0
       return 'WIN'
@@ -92,7 +93,22 @@ angular.module 'spicyPartyApp'
     if $scope.profile
       playerName = $scope.convertName($scope.profile.playerName)
       $state.go(location, {player: playerName})
+      $location.path('/' + playerName + location.split('.')[1])
+    
+    if location == 'main.leaderboard'
+      if $scope.profile
+        playerParam = $scope.convertName($scope.profile.playerName)
+      else
+        playerParam = 'beta'
+      $state.go(location, {player: playerParam})
+      $http.get("/api/data").success(
+        (allData)->
+          _.each(allData, (el)->
+              $scope.recentSearches = $scope.addRecent($scope.convertName(el.profile.playerName), el)
+              $scope.leaders.push({name: el.profile.playerName, elo: el.profile.elo})
+            )
+        )
 
-  if $stateParams.player
+  if $stateParams.player and $stateParams.player isnt 'beta'
     playerName = $scope.convertName($stateParams.player, true)
     $scope.searchPlayer(playerName)

@@ -6,12 +6,12 @@ var Authid = require('../authID/authID.model');
 var getData = require('../helperFuncs/getData.js').func
 
 // Get list of datas
-// exports.index = function(req, res) {
-//   Data.find(function (err, datas) {
-//     if(err) { return handleError(res, err); }
-//     return res.json(200, datas);
-//   });
-// };
+exports.index = function(req, res) {
+  Data.find(function (err, datas) {
+    if(err) { return handleError(res, err); }
+    return res.json(200, datas);
+  });
+};
 
 // Get a single data
 exports.show = function(req, res) {
