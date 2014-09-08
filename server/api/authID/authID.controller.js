@@ -23,7 +23,7 @@ var getData = require('../helperFuncs/getData.js').func
 function cb(authID, body, res){
   return function(){
     Authid.update({'authID': authID}, body, {'upsert': true}, function(err, numAffected){
-      console.log('updatedID for ' + body.playername)
+      console.log('updatedID for ' + body.playerName)
       if(err){console.log(err)}
       else{
         res.send(200);
