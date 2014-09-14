@@ -4,9 +4,9 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var AuthidSchema = new Schema({
-  tegID: String,
+  tegID: {type:String, index:true},
   authID: String,
-  playerName: String
+  playerName: {type:String, index:true}
 });
 
 module.exports = mongoose.model('Authid', AuthidSchema);

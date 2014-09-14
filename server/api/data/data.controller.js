@@ -18,7 +18,7 @@ exports.show = function(req, res) {
   // Name is separated by "." in the REST URL
   var playerName = req.params.playerName.split('.').join(' ').toUpperCase()
   console.log(playerName)
-  Data.findOne({'profile.playerName':playerName}, function (err, data) {
+  Data.findOne({'playerName':playerName}, function (err, data) {
     if(err) { return handleError(res, err); }
     if(!data) { return res.send(404); }
     return res.json(data);

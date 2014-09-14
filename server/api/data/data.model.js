@@ -7,7 +7,8 @@ var DataSchema = new Schema({
 	"userId": String,
 	"modifiedDate": Number,
 	"inventory": Array,
-	"profile": Object
+	"profile": Object,
+  "playerName": {type:String, index: true}
 });
 
 module.exports = mongoose.model('Data', DataSchema);

@@ -23,8 +23,9 @@ exports.func = function(body, res, cb){
       // console.log(data);
       data.inventory = data.data.inventory;
       data.profile = data.data.profile;
+      data.playerName = data.profile.playerName;
       delete(data.data);
-      Data.update({'profile.playerName': data.profile.playerName}, data, {'upsert': true}, function(err, numAffected){
+      Data.update({'playerName': data.playerName}, data, {'upsert': true}, function(err, numAffected){
         if(err){console.log(err)}
       })
       if(res && !cb){
