@@ -20,9 +20,9 @@ var getData = require('../helperFuncs/getData.js').func
 //   });
 // };
 // Returns a callback for getData. This callback updates the authID in database only if getData gets a valid playerData.
-function cb(authID, body, res){
+function cb(tegID, body, res){
   return function(){
-    Authid.update({'authID': authID}, body, {'upsert': true}, function(err, numAffected){
+    Authid.update({'tegID': tegID}, body, {'upsert': true}, function(err, numAffected){
       console.log('updatedID for ' + body.playerName)
       if(err){console.log(err)}
       else{
@@ -35,7 +35,7 @@ function cb(authID, body, res){
 exports.create = function(req, res) {
   if((typeof req.body.playerName) == 'string' && (typeof req.body.authID) == 'string' && (typeof req.body.tegID) == 'string'){
     req.body.playerName = req.body.playerName.toUpperCase()
-    getData(req.body, res, cb(req.body.authID, req.body, res));
+    getData(req.body, res, cb(req.body.tegID, req.body, res));
   }else{
     console.log('error', req.body);
     res.send(400)
