@@ -41,8 +41,12 @@ exports.update = function(req, res) {
   var playerName = req.params.playerName.split('.').join(' ').toUpperCase();
   Authid.find({'playerName':playerName}, function (err, data) {
     if(err){return console.log(err)}
-    console.log('update', data[0].playerName)
-    getData(data[0], res);
+    if(data[0]){
+      console.log('update', data[0].playerName)
+      getData(data[0], res);
+    }else{
+      res.send(404);
+    }
   });
 };
 
