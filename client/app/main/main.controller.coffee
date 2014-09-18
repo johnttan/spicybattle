@@ -37,6 +37,9 @@ angular.module 'spicyPartyApp'
   errorSearch = do(scope=$scope)->
     return ->
       scope.error = 'No player found'
+  errorUpdate = do(scope=$scope)->
+    return ->
+      scope.error = 'Enable your plugin and refresh the game!'
   $scope.searchPlayer = (playerName)->
     if playerName
       playerName = $scope.convertName(playerName)
@@ -58,7 +61,7 @@ angular.module 'spicyPartyApp'
           playerName = $scope.convertName(playerData.profile.playerName)
           $scope.recentSearches = $scope.addRecent(playerName, playerData)
           $scope.lastUpdated = new Date()
-        )
+        ).error(errorUpdate)
   $scope.clearHistory = ->
     $scope.recentSearches = Recent.clearHistory()
   $scope.checkLocation = (location)->
