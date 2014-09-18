@@ -25,15 +25,39 @@ exports.func = function(body, res, cb){
       data.profile = data.data.profile;
       data.playerName = data.profile.playerName;
       delete(data.data);
-      Data.update({'playerName': data.playerName}, data, {'upsert': true}, function(err, numAffected){
-        if(err){console.log(err)}
+      updateQuery = {
+        $set: data,
+        $addToSet:{'gameLog': {$each: data.profile.gameLog}}
+      };
+      gameLog = data.profile.gameLog;
+      delete data.profile.gameLog;
+      var time1 = new Date();
+      Data.findOneAndUpdate({'playerName': data.playerName}, updateQuery, {'new':true}, function(err, retdata){
+        if(!retdata){
+          data.gameLog = gameLog;
+          Data.findOneAndUpdate({'playerName': data.playerName}, data, {upsert:true, 'new':true}, function(err, retdata){
+            if(err){return console.log(err)}
+            var time2 = new Date();
+            console.log(time2 - time1, 'newDataTime', data.playerName);
+            if(res && !cb){
+              res.json(retdata)
+            }
+            if(cb){
+              cb(retdata)
+            }
+          })
+        }else{
+          var time2 = new Date();
+          console.log(time2 - time1, 'existingDataTime', data.playerName);
+
+          if(res && !cb){
+            res.json(retdata)
+          }
+          if(cb){
+            cb(retdata)
+          }
+          }
       })
-      if(res && !cb){
-        res.json(data)
-      }
-      if(cb){
-        cb(data)
-      }
     }else{
       console.log('malformed data', data, playerName)
       res.send(400)

@@ -28,7 +28,7 @@ angular.module 'spicyPartyApp'
     return (playerData)->
       scope.error = ''
       scope.profile = playerData.profile
-      scope.gameLog = playerData.profile.gameLog
+      scope.gameLog = playerData.gameLog
       scope.playerData = playerData
       playerName = $scope.convertName(playerData.profile.playerName)
       scope.recentSearches = $scope.addRecent(playerName, playerData)
@@ -56,7 +56,7 @@ angular.module 'spicyPartyApp'
         (playerData)->
           $scope.error = ''
           $scope.profile = playerData.profile
-          $scope.gameLog = playerData.profile.gameLog
+          $scope.gameLog = playerData.gameLog
           $scope.playerData = playerData
           playerName = $scope.convertName(playerData.profile.playerName)
           $scope.recentSearches = $scope.addRecent(playerName, playerData)
