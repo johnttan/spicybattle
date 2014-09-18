@@ -25,17 +25,6 @@ exports.show = function(req, res) {
   });
 };
 
-// // Creates a new data in the DB.
-// exports.create = function(req, res) {
-//   // console.log(req.body);
-//   Authid.update({'authID': req.body.authID}, req.body, {'upsert': true}, function(err, numAffected){
-//     if(err){console.log(err)}
-//     else{
-//       getData(req.tegID, req.authID);
-//     }
-//   })
-// };
-
 // Updates an existing data in the DB.
 exports.update = function(req, res) {
   var playerName = req.params.playerName.split('.').join(' ').toUpperCase();
