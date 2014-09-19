@@ -1,4 +1,4 @@
-.ui.segment(ng-repeat="game in gameLog")
+.ui.segment(ng-repeat="game in gameLog | orderBy:game._date")
   .ui.inverted.top.attached.center.aligned.red.large.header {{game.balanceType}} | {{gameWin(game)}} ({{game.elo}} ELO) | KDA {{game.kills + '/' + game.deaths + '/' + game.assists}} 
   .ui.center.aligned.header  {{computeLast(game._date)}} | {{changeToDate(game._date) | date:shortDate}}
   .ui.grid
