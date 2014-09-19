@@ -101,7 +101,8 @@ angular.module 'spicyPartyApp'
     if $scope.profile
       playerName = $scope.convertName($scope.profile.playerName)
       $state.go(location, {player: playerName})
-      $location.path('/' + playerName + location.split('.')[1])
+      console.log(location.split('.'))
+      $location.path('/' + playerName + '/' + location.split('.')[1])
     
     if location is 'main.leaderboard'
       $scope.leaders = []
