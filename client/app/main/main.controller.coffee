@@ -108,6 +108,7 @@ angular.module 'spicyPartyApp'
       $scope.leaders = []
       $http.get("/api/data").success(
         (allData)->
+          $scope.leaders = []
           _.each(allData, (el)->
               $scope.addRecent($scope.convertName(el.profile.playerName), el ,true)
               $scope.leaders.push({name: el.profile.playerName, elo: el.profile.elo})
