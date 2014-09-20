@@ -21,6 +21,7 @@ angular.module 'spicyPartyApp'
 		rec.checkRecent = (playerName, searchPlayer)->
 			clearTimeout(rec.poll)
 			playerData = rec.searches[playerName]
+			outdated = true
 			if playerData
 				now = new Date().getTime()
 				difference = now - playerData.data.modifiedDate

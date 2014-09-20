@@ -28,7 +28,7 @@ exports.show = function(req, res) {
     if(err) { return handleError(res, err); }
     if(!data) { return res.send(404); }
     var now = new Date().getTime();
-    if(now - data.modifiedDate > 600000){
+    if(now - data.modifiedDate > 800000){
       console.log('updating ' + playerName + ' because outdated');
       update(req, res);
     }else{

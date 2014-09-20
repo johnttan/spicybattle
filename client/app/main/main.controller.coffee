@@ -16,7 +16,7 @@ angular.module 'spicyPartyApp'
     if decode
       return playerName.split('.').join(' ')
     else
-      return playerName.split(' ').join('.')
+      return playerName.split(' ').join('.').toUpperCase()
   $scope.backpackBuild = (game)->
     belt = game.belt.split('_')
     belt[0] = ''
