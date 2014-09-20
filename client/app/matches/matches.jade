@@ -1,6 +1,6 @@
 .ui.segment(ng-repeat="game in gameLog | orderBy:'-_date'")
   .ui.inverted.top.attached.center.aligned.red.large.header {{game.balanceType}} | {{gameWin(game)}} ({{game.elo}} ELO) | KDA {{game.kills + '/' + game.deaths + '/' + game.assists}} 
-  .ui.center.aligned.header  {{computeLast(game._date)}} | {{changeToDate(game._date) | date:'MMM d, yyyy h:mma'}}
+  .ui.center.aligned.header {{changeToDate(game._date) | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}
   .ui.grid
     .four.column.row
       .four.wide.right.aligned.column

@@ -65,30 +65,12 @@ angular.module 'spicyPartyApp'
     $scope.recentSearches = Recent.clearHistory()
   $scope.checkLocation = (location)->
     return '/' +$location.path().split('/')[2] is location
-  $scope.computeLast = (last)->
-    if typeof last is 'string'
-      last = new Date(last)
-      last = last.getTime()
-      # last = new Date(last.getTime() - (1000 * 60 * 60 * 5))
-    since = Date.now()
-    since = since - last
-    totalMinutes = parseInt(since/1000/60)
-    hours = parseInt(Math.floor(totalMinutes/60)).toString()
-    days = parseInt(Math.floor(hours/24)).toString()
-    minutes = (totalMinutes % 60).toString()
-    if parseInt(days) > 0
-      hours = (parseInt(hours) % 24).toString()
-      returnString = days + ' days ' + hours + ' hours ago'
-    else if parseInt(hours) > 0
-      returnString = hours + ' hours ' + minutes + ' minutes ago'
-    else
-      returnString = minutes + ' minutes ago'
-    return  returnString
   $scope.convertToSec = (ms)->
     return parseInt(ms / 1000)
   $scope.changeToDate = (dateString)->
     dateO = new Date(dateString)
-    return dateO.getTime()
+    UTCdate = new Date(Date.UTC(dateO.getFullYear(), dateO.getMonth(), dateO.getDay(), dateO.getHours(), dateO.getMinutes(), dateO.getSeconds(), dateO.getMilliseconds()))
+    return UTCdate
   $scope.avatarURL = (urlname)->
     if urlname is 'flame'
       urlname = 'flameprincess'

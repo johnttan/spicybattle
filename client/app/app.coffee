@@ -6,7 +6,8 @@ angular.module 'spicyPartyApp', [
   'ngSanitize',
   'ui.router',
   'ui.bootstrap',
-  'LocalStorageModule'
+  'LocalStorageModule',
+  'angularMoment'
 ]
 .config ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) ->
   $urlRouterProvider
