@@ -43,6 +43,7 @@ angular.module 'spicyPartyApp'
     if playerName
       playerName = $scope.convertName(playerName)
       playerCache = Recent.checkRecent(playerName, $scope.searchPlayer)
+      $scope.lastUpdated = new Date()
       if playerCache
         console.log('cache found')
         loadPlayerData(playerCache)
@@ -59,7 +60,6 @@ angular.module 'spicyPartyApp'
           $scope.playerData = playerData
           playerName = $scope.convertName(playerData.profile.playerName)
           $scope.recentSearches = $scope.addRecent(playerName, playerData)
-          $scope.lastUpdated = new Date()
         ).error(errorUpdate)
   $scope.clearHistory = ->
     $scope.recentSearches = Recent.clearHistory()

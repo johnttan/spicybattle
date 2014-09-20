@@ -10,6 +10,7 @@
             .ui.button.blue(ng-click="searchPlayer(search.player)") Search
           .ui.header.red(ng-show="error") {{error}}
           .ui.header {{profile.playerName}} | {{profile.elo}} ELO
+          .ui.header Last Updated : {{lastUpdated | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}
           a.item.header.red(ng-click="goTo('main.matches')" ng-class="{active:checkLocation('/matches')}") Match History
           a.item.header.green(ng-click="goTo('main.profile')" ng-class="{active:checkLocation('/profile')}") Profile
           a.item.header.blue(ng-click="goTo('main.leaderboard')" ng-class="{active:checkLocation('/leaderboard')}") Leaderboard
