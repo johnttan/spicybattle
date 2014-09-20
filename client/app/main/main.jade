@@ -2,18 +2,14 @@
   .ui.grid
     .two.column.row
       .column.ui.vertical.menu#sidebar
-          .ui.header ALPHA 1.3.5
-          .ui.header Improved Leaderboard
-          .ui.header Profile Statistics added!
-          .ui.header {{playerData.modifiedDate | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}
+          .ui.header ALPHA 1.4.0
+          .ui.header Displayed player data will auto-refresh immediately if latest game available is > 15 mins old, and every 5 mins after.
+          .ui.header Otherwise it will auto-refresh within 15 minutes of the latest game.
           .ui.action.input#searchBox
             input(ng-model="search.player")
             .ui.button.blue(ng-click="searchPlayer(search.player)") Search
           .ui.header.red(ng-show="error") {{error}}
           .ui.header {{profile.playerName}} | {{profile.elo}} ELO
-          .ui.small.header Remember to refresh data!
-          .item.ui.button.green(ng-click="refreshPlayer()") Refresh Data 
-          .item(ng-show="lastUpdated") Last Updated : {{computeLast(lastUpdated) | date:short}}
           a.item.header.red(ng-click="goTo('main.matches')" ng-class="{active:checkLocation('/matches')}") Match History
           a.item.header.green(ng-click="goTo('main.profile')" ng-class="{active:checkLocation('/profile')}") Profile
           a.item.header.blue(ng-click="goTo('main.leaderboard')" ng-class="{active:checkLocation('/leaderboard')}") Leaderboard

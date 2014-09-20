@@ -16,11 +16,23 @@ angular.module 'spicyPartyApp'
 			rec.searches[playerName] = recentData
 			localStorageService.set('searches', rec.searches)
 			return rec.searches
-		rec.checkRecent = (playerName)->
+		emitSearch = (name)->
+
+		rec.checkRecent = (playerName, searchPlayer)->
+			clearTimeout(rec.poll)
 			playerData = rec.searches[playerName]
 			if playerData
+				now = new Date().getTime()
+				difference = now - playerData.data.modifiedDate
+				outdated = difference > 600000
+			if not outdated
+				future = difference + (800000-difference)
+				rec.poll = setTimeout(searchPlayer.bind(undefined, playerName), future)
+				console.log 'set poll for', playerName, future + ' ms in the future'
 				return playerData.data
 			else
+				rec.poll = setTimeout(searchPlayer.bind(undefined, playerName), 300000)
+				console.log 'set poll for', playerName, '5 minutes in the future'
 				return false
 		rec.getRecent = ->
 			return rec.searches

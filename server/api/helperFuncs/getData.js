@@ -10,11 +10,12 @@ function verify(data, playerName){
 exports.verify = verify
 // Retrieves user data from CN servers, updates database, and returns data in response.
 exports.func = function(body, res, cb){
-  tegID = body.tegID;
-  authID = body.authID;
-  playerName = body.playerName;
+  var tegID = body.tegID;
+  var authID = body.authID;
+  var playerName = body.playerName;
 
   var url = "http://www.cartoonnetwork.com/champions-papi/v2/user/champions?TEGid="+tegID+"&authid=" + authID;
+  var beforeRequestTime = new Date();
   request(url, function(error, response, body){
     if (error){res.send(400);return console.log('error requesting data', error)};
     
@@ -25,20 +26,21 @@ exports.func = function(body, res, cb){
       data.profile = data.data.profile;
       data.playerName = data.profile.playerName;
       delete(data.data);
-      updateQuery = {
+      var updateQuery = {
         $set: data,
         $addToSet:{'gameLog': {$each: data.profile.gameLog}}
       };
-      gameLog = data.profile.gameLog;
+      var gameLog = data.profile.gameLog;
       delete data.profile.gameLog;
       var time1 = new Date();
+      console.log(time1 - beforeRequestTime, 'requestTime', data.playerName)
       Data.findOneAndUpdate({'playerName': data.playerName}, updateQuery, {'new':true}, function(err, retdata){
         if(!retdata){
           data.gameLog = gameLog;
           Data.findOneAndUpdate({'playerName': data.playerName}, data, {upsert:true, 'new':true}, function(err, retdata){
             if(err){return console.log(err)}
             var time2 = new Date();
-            console.log(time2 - time1, 'newDataTime', data.playerName);
+            console.log(time2 - time1, 'newPlayerTime', data.playerName);
             if(res && !cb){
               res.json(retdata)
             }
@@ -48,7 +50,7 @@ exports.func = function(body, res, cb){
           })
         }else{
           var time2 = new Date();
-          console.log(time2 - time1, 'existingDataTime', data.playerName);
+          console.log(time2 - time1, 'existingPlayerTime', data.playerName);
 
           if(res && !cb){
             res.json(retdata)

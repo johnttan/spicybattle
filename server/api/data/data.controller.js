@@ -18,13 +18,6 @@ function update(req, res) {
     }
   });
 };
-// Get list of datas
-exports.index = function(req, res) {
-  Data.find(function (err, datas) {
-    if(err) { return handleError(res, err); }
-    return res.json(200, datas);
-  });
-};
 
 // Get a single data
 exports.show = function(req, res) {

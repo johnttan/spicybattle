@@ -42,7 +42,7 @@ angular.module 'spicyPartyApp'
   $scope.searchPlayer = (playerName)->
     if playerName
       playerName = $scope.convertName(playerName)
-      playerCache = Recent.checkRecent(playerName)
+      playerCache = Recent.checkRecent(playerName, $scope.searchPlayer)
       if playerCache
         console.log('cache found')
         loadPlayerData(playerCache)
