@@ -27,5 +27,5 @@
           include ../profile/profile.jade
         div(ng-show="checkLocation('/matches')")
           include ../matches/matches.jade
-        div(ng-show="checkLocation('/leaderboard')")
+        div(ng-show="checkLocation('/leaderboard')" ng-controller="LeaderboardCtrl")
           include ../leaderboard/leaderboard.jade

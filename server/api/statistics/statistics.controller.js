@@ -13,7 +13,7 @@ exports.index = function(req, res) {
 
 // Get a single statistics
 exports.show = function(req, res) {
-  Statistics.findById(req.params.id, function (err, statistics) {
+  Statistics.findOne({name:req.params.id.toLowerCase()}, function (err, statistics) {
     if(err) { return handleError(res, err); }
     if(!statistics) { return res.send(404); }
     return res.json(statistics);
