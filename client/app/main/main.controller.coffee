@@ -48,6 +48,10 @@ angular.module 'spicyPartyApp'
         console.log('cache found')
         loadPlayerData(playerCache)
       else
+        $scope.error = 'Loading Player Data'
+        $scope.profile = {}
+        $scope.gameLog = []
+        $scope.playerData = {}
         $http.get("/api/data/" + playerName).success(loadPlayerData).error(errorSearch)
 
   $scope.refreshPlayer = ->
