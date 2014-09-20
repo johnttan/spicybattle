@@ -25,7 +25,8 @@
     "composable-middleware": "^0.3.0",
     "connect-mongo": "^0.4.1",
     "cors": "2.4.1",
-    "request": "2.42.0"
+    "request": "2.42.0",
+    "coffee-script": "~1.8.0"
   },
   "devDependencies": {
     "grunt": "~0.4.4",
