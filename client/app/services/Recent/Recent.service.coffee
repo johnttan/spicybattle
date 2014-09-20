@@ -26,7 +26,7 @@ angular.module 'spicyPartyApp'
 				difference = now - playerData.data.modifiedDate
 				outdated = difference > 600000
 			if not outdated
-				future = difference + (800000-difference)
+				future = difference + (800000-playerData.data.modifiedDate)
 				rec.poll = setTimeout(searchPlayer.bind(undefined, playerName), future)
 				console.log 'set poll for', playerName, future + ' ms in the future'
 				return playerData.data
