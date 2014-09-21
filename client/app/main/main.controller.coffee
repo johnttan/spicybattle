@@ -74,7 +74,7 @@ angular.module 'spicyPartyApp'
     return parseInt(ms / 1000)
   $scope.changeToDate = (dateString)->
     dateO = new Date(dateString)
-    UTCdate = new Date(Date.UTC(dateO.getFullYear(), dateO.getMonth(), dateO.getDay(), dateO.getHours(), dateO.getMinutes(), dateO.getSeconds(), dateO.getMilliseconds()))
+    UTCdate = new Date(Date.UTC(dateO.getFullYear(), dateO.getMonth(), dateO.getDate(), dateO.getHours(), dateO.getMinutes(), dateO.getSeconds(), dateO.getMilliseconds()))
     return UTCdate
   $scope.avatarURL = (urlname)->
     if urlname is 'flame'
