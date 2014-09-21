@@ -41,6 +41,7 @@ angular.module 'spicyPartyApp'
       scope.error = 'Enable your plugin and refresh the game!'
   $scope.searchPlayer = (playerName)->
     if playerName
+      console.log(playerName, 'searching')
       playerName = $scope.convertName(playerName)
       playerCache = Recent.checkRecent(playerName, $scope.searchPlayer)
       $scope.lastUpdated = new Date()
@@ -93,7 +94,7 @@ angular.module 'spicyPartyApp'
         playerParam = $scope.convertName($scope.profile.playerName)
       else
         playerParam = 'beta'
-      $state.go(location, {player: playerParam})
+      $state.go(location)
   if $stateParams.player and $stateParams.player isnt 'beta'
     playerName = $scope.convertName($stateParams.player, true)
     $scope.searchPlayer(playerName)
