@@ -18,21 +18,21 @@ angular.module 'spicyPartyApp'
 			return rec.searches
 		emitSearch = (name)->
 
-		rec.checkRecent = (playerName, searchPlayer)->
+		rec.checkRecent = (playerName, boundFunc)->
 			clearTimeout(rec.poll)
-			playerData = rec.searches[playerName]
+			playerStats = rec.searches[playerName]
 			outdated = true
-			if playerData
+			if playerStats
 				now = new Date().getTime()
-				difference = now - playerData.data.modifiedDate
+				difference = now - playerStats.data.modifiedDate
 				outdated = difference > 850000
 			if not outdated
-				future = (850000+playerData.data.modifiedDate-now)
-				rec.poll = setTimeout(searchPlayer.bind(undefined, playerName), future)
+				future = (850000+playerStats.data.modifiedDate-now)
+				rec.poll = setTimeout(boundFunc, future)
 				console.log 'set poll for', playerName, future + ' ms in the future'
-				return playerData.data
+				return playerStats.data
 			else
-				rec.poll = setTimeout(searchPlayer.bind(undefined, playerName), 300000)
+				rec.poll = setTimeout(boundFunc, 300000)
 				console.log 'set poll for', playerName, '5 minutes in the future'
 				return false
 		rec.getRecent = ->
