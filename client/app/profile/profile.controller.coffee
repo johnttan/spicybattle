@@ -43,6 +43,6 @@ angular.module 'spicyPartyApp'
   $scope.formatPack = (pack)->
     splitUp = pack.split('_')
     if splitUp[2]
-      return splitUp[1] + ' ' + splitUp[2] 
-    else
       return splitUp[1]
+    else
+      return splitUp[1] + ' ' + splitUp[2] 
