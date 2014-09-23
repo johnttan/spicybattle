@@ -1,5 +1,5 @@
 .ui.segment(ng-repeat="game in gameLog | orderBy:'-_date'")
-  .ui.inverted.top.attached.center.aligned.red.large.header {{game.balanceType}} | {{gameWin(game)}} ({{game.elo}} ELO) | KDA {{game.kills + '/' + game.deaths + '/' + game.assists}} 
+  .ui.inverted.top.attached.center.aligned.red.huge.header {{game.balanceType}} | {{gameWin(game)}} ({{game.elo}} ELO) | KDA {{game.kills + '/' + game.deaths + '/' + game.assists}} 
   .ui.center.aligned.header {{changeToDate(game._date) | amDateFormat:'dddd, MMMM Do YYYY, h:mm a'}}
   .ui.grid
     .four.column.row
@@ -7,7 +7,7 @@
         .ui.rounded.image 
           .ui.purple.header {{game.playerName}} lvl {{game.level}}
           img(ng-src="{{avatarURL(game.playerName)}}")
-      .four.wide.left.aligned.column
+      .two.wide.left.aligned.column
         .ui.header Teammates
         .ui.small.rounded.image
           .ui.purple.header {{game.teammate1}}
@@ -15,31 +15,8 @@
         .ui.small.rounded.image
           .ui.purple.header {{game.teammate2}}
           img(ng-src="{{avatarURL(game.teammate2)}}")
-      .four.wide.right.aligned.column
-        .ui.small.header build :
-        .ui.small.header score :
-        .ui.small.header towers :
-        .ui.small.header minions :
-        .ui.small.header jungle :
-        .ui.small.header winning team elo :
-        .ui.small.header losing team elo :
-        .ui.small.header largest spree :
-        .ui.small.header damage dealt :
-        .ui.small.header magic damage :
-        .ui.small.header physical damage :
-        .ui.small.header time dead :
-        .ui.small.header disconnected :
-      .four.wide.left.aligned.column
-        .ui.small.header {{backpackBuild(game)}}
-        .ui.small.header {{game.score}}
-        .ui.small.header {{game.towers}}
-        .ui.small.header {{game.minions}}
-        .ui.small.header {{game.jungleMobs}}
-        .ui.small.header {{game.winTeamElo}}
-        .ui.small.header {{game.loseTeamElo}}
-        .ui.small.header {{game.largestSpree}}
-        .ui.small.header {{game.damageDealtTotal}}
-        .ui.small.header {{game.damageDealtSpell}}
-        .ui.small.header {{game.damageDealtPhysical}}
-        .ui.small.header {{convertToSec(game.timeDead) + ' seconds'}}
-        .ui.small.header {{!game.connected}}
+      .ten.wide.left.aligned.column
+        .ui.large.header {{backpackBuild(game)}}
+        .ui.large.header Score {{game.score}} | Towers {{game.towers}} | Minions {{game.minions}} | Jungle {{game.jungleMobs}} | Dead {{convertToSec(game.timeDead) + ' seconds'}}
+        .ui.large.header Winning team {{game.winTeamElo}} ELO | Losing team {{game.loseTeamElo}} ELO
+        .ui.large.header Largest Spree {{game.largestSpree}} | Damage Dealt {{game.damageDealtTotal}} | Physical Damage {{game.damageDealtPhysical}} | Magic Damage {{game.damageDealtSpell}}
