@@ -1,55 +1,16 @@
 .ui.grid
   .row
-    .four.wide.right.aligned.column
-      .ui.huge.header Lifetime
-      .ui.large.header Tier : 
-      .ui.large.header Wins : 
-      .ui.large.header Losses : 
-      .ui.large.header Knockouts : 
-      .ui.large.header Defeats : 
-      .ui.large.header Assists : 
-      .ui.large.header Towers : 
-      .ui.large.header Largest Spree : 
-      .ui.large.header Minions : 
-      .ui.large.header Jungle Minions :
-      .ui.large.header Altars :  
-      .ui.large.header Highest Score : 
-      .ui.large.header Total Score : 
-    .four.wide.left.aligned.column
-      .ui.huge.header Statistics
-      .ui.large.header {{tierConvert(profile.tier)}}
-      .ui.large.header {{profile.winsPVP}}
-      .ui.large.header {{profile.playsPVP - profile.winsPVP}}
-      .ui.large.header {{profile.kills}}
-      .ui.large.header {{profile.deaths}}
-      .ui.large.header {{profile.assists}}
-      .ui.large.header {{profile.towers}}
-      .ui.large.header {{profile.largestSpree}}
-      .ui.large.header {{profile.minions}}
-      .ui.large.header {{profile.jungleMobs}}
-      .ui.large.header {{profile.altars}}
-      .ui.large.header {{profile.scoreHighest}}
-      .ui.large.header {{profile.scoreTotal}}
-    .four.wide.right.aligned.column
-      .ui.huge.header Per Game
-      .ui.large.header Knockouts : 
-      .ui.large.header Defeats : 
-      .ui.large.header Assists : 
-      .ui.large.header Towers : 
-      .ui.large.header Minions (Jungle+Lane) : 
-      .ui.large.header Altars : 
-      .ui.large.header Score : 
-    .four.wide.left.aligned.column
-      .ui.huge.header Averages
-      .ui.large.header {{profile.kills / profile.playsPVP | number:2}}
-      .ui.large.header {{profile.deaths / profile.playsPVP | number:2}}
-      .ui.large.header {{profile.assists / profile.playsPVP | number:2}}
-      .ui.large.header {{profile.towers / profile.playsPVP | number:2}}
-      .ui.large.header {{(profile.minions + profile.jungleMobs) / profile.playsPVP | number:2}}
-      .ui.large.header {{profile.altars / profile.playsPVP | number:2}}
-      .ui.large.header {{profile.scoreTotal / profile.playsPVP | number:2}}
+    .eight.wide.left.aligned.column
+      .ui.huge.header Lifetime Statistics
+      .ui.large.header Tier {{tierConvert(profile.tier)}} | Wins {{profile.winsPVP}} | Losses {{profile.playsPVP - profile.winsPVP}} | Total Score {{profile.scoreTotal}}
+      .ui.large.header Kills  {{profile.kills}} | Deaths {{profile.deaths}} | Assists {{profile.assists}} | Towers {{profile.towers}} | Altars {{profile.altars}}
+      .ui.large.header Minions {{profile.minions}} | Jungle {{profile.jungleMobs}} | Largest Spree {{profile.largestSpree}} | Highest Score {{profile.scoreHighest}}
+    .eight.wide.left.aligned.column
+      .ui.huge.header Per Game Averages
+      .ui.large.header Kills {{profile.kills / profile.playsPVP | number:2}} | Deaths {{profile.assists / profile.playsPVP | number:2}} | Assists {{profile.assists / profile.playsPVP | number:2}} | Score {{profile.scoreTotal / profile.playsPVP | number:2}}
+      .ui.large.header Towers {{profile.towers / profile.playsPVP | number:2}} | Minions (Jungle+Lane) {{(profile.minions + profile.jungleMobs) / profile.playsPVP | number:2}} | Altars {{profile.altars / profile.playsPVP | number:2}} 
   .row
-    .twelve.wide.center.aligned.column
+    .ten.wide.left.aligned.column
       .ui.huge.header Champions Stats (last {{gamesAnalyzed}} games)
       .ui.buttons
         .ui.button(ng-click="changeSortKey('winRate')") Win Rate
@@ -71,7 +32,7 @@
             |deaths {{statObj.stats.deaths / statObj.stats.totalGames | number:2}} | assists {{statObj.stats.deaths / statObj.stats.totalGames | number:2}} | 
             |jungle {{statObj.stats.jungleMobs / statObj.stats.totalGames | number:2}} | score {{statObj.stats.scoreTotal / statObj.stats.totalGames | number:2}}
           .ui.divider
-    .four.wide.center.aligned.column
+    .six.wide.left.aligned.column
       .ui.huge.header Backpack Stats 
       .ui.divider
       .ui.list
