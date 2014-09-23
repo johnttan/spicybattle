@@ -19,7 +19,7 @@
               a.item(ng-repeat="(name, object) in recentSearches" ng-click="searchPlayer(name)" ng-if="object.display") {{convertName(name, true)}} {{object.time | date:short}}
             span.ui.small.button(ng-click="clearHistory()") Clear
       .column#dataView
-        div(ng-show="checkLocation('/profile')")
+        div(ng-show="checkLocation('/profile')" ng-controller="ProfileCtrl")
           include ../profile/profile.jade
         div(ng-show="checkLocation('/matches')")
           include ../matches/matches.jade

@@ -48,3 +48,10 @@
       .ui.header {{(profile.minions + profile.jungleMobs) / profile.playsPVP | number:2}}
       .ui.header {{profile.altars / profile.playsPVP | number:2}}
       .ui.header {{profile.scoreTotal / profile.playsPVP | number:2}}
+  .row
+    .eight.wide.center.aligned.column
+      .ui.huge.header Champions Stats (last {{gamesAnalyzed}} games)
+      .ui.header(ng-repeat='statObj in champStats | orderBy:sortChamps:true') {{statObj.name}} {{statObj.stats}}
+    .eight.wide.center.aligned.column
+      .ui.huge.header Backpack Stats (last {{gamesAnalyzed}} games)
+      .ui.header(ng-repeat='statObj in packStats') {{statObj.name}} {{statObj.stats}}

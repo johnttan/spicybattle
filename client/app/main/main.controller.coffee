@@ -33,6 +33,8 @@ angular.module 'spicyPartyApp'
       PlayerData.playerData
     ,
     ->
+      if PlayerData.playerData.profile
+        $scope.error = ''
       $scope.playerData = PlayerData.playerData
       $scope.profile = PlayerData.profile
       $scope.gameLog = PlayerData.gameLog
@@ -45,10 +47,6 @@ angular.module 'spicyPartyApp'
       console.log(playerName, 'searching')
       $scope.lastUpdated = new Date()
       $scope.error = 'Loading Player Data'
-      $scope.profile = {}
-      $scope.gameLog = []
-      $scope.playerData = {}
-      $scope.error = ''
       playerName = $scope.convertName(playerName)
       $state.go('main.matches', {player: playerName})
       $location.path('/' + playerName + '/matches')

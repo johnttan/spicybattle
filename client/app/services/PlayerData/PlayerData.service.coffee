@@ -1,14 +1,16 @@
 'use strict'
 
 angular.module 'spicyPartyApp'
-.service 'PlayerData', ['$http', 'Recent'
+.service 'PlayerData', ['$http', 'Recent', 'ProfileStats'
     class PlayerData
-      constructor: ($http, Recent)->
+      constructor: ($http, Recent, ProfileStats)->
         @http = $http
+        @getStats = ProfileStats.getStats
         @checkRecent = Recent.checkRecent
         @addRecent = Recent.addRecent
         @playerData = {}
         @recentSearches = Recent.getRecent()
+        @stats = {}
       convertName: (playerName, decode)->
         if decode
           return playerName.split('.').join(' ')
@@ -20,8 +22,12 @@ angular.module 'spicyPartyApp'
         @gameLog = playerData.gameLog
         @playerName = @convertName(playerData.profile.playerName)
         @recentSearches = @addRecent(@playerName, playerData)
+        @stats = @getStats(playerData.gameLog)
+        console.log @stats
       searchPlayer: (playerName, error)=>
-        # Possibly move functionality of check recent to here.
+        @profile = {}
+        @gameLog = []
+        @playerData = {}
         boundFunc = do(pdata=@, error=error, playerName=playerName)->
           ->
             pdata.searchPlayer(playerName, pdata.loadData, error)
