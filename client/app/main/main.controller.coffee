@@ -34,11 +34,13 @@ angular.module 'spicyPartyApp'
       state.go('main.matches', {player: playerName})
       location.path('/' + playerName + '/matches')
   errorSearch = do(scope=$scope)->
-    return ->
-      scope.error = 'No player found'
-  errorUpdate = do(scope=$scope)->
-    return ->
-      scope.error = 'Enable your plugin and refresh the game!'
+    return (error)->
+      console.log error
+      if error is 'Bad Request'
+        scope.error = 'Enable your plugin and refresh the game!'
+      else
+        scope.error = 'No player found'
+
   $scope.searchPlayer = (playerName)->
     if playerName
       console.log(playerName, 'searching')
@@ -55,17 +57,6 @@ angular.module 'spicyPartyApp'
         $scope.playerData = {}
         $http.get("/api/data/" + playerName).success(loadPlayerData).error(errorSearch)
 
-  $scope.refreshPlayer = ->
-    if $scope.profile
-      $http.put("/api/data/" + $scope.profile.playerName.split(' ').join('.')).success(
-        (playerData)->
-          $scope.error = ''
-          $scope.profile = playerData.profile
-          $scope.gameLog = playerData.gameLog
-          $scope.playerData = playerData
-          playerName = $scope.convertName(playerData.profile.playerName)
-          $scope.recentSearches = $scope.addRecent(playerName, playerData)
-        ).error(errorUpdate)
   $scope.clearHistory = ->
     $scope.recentSearches = Recent.clearHistory()
   $scope.checkLocation = (location)->
