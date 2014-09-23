@@ -23,6 +23,7 @@ angular.module 'spicyPartyApp'
         deaths: 0
         assists: 0
         belts: {}
+        jungleMobs: 0
         }    
       packTemp = {
         wins: 0

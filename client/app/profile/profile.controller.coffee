@@ -12,10 +12,12 @@ angular.module 'spicyPartyApp'
     ,
     ->
       $scope.champStats = _.map(PlayerData.stats.champStats, (el, key)->
+          el.totalGames = el.wins + el.losses
           return {name: key, stats: el}
-        )
+      )
       $scope.packStats = _.map(PlayerData.stats.packStats, (el, key)->
-        return {name: key, stats: el}
+          el.totalGames = el.wins + el.losses
+          return {name: key, stats: el}
       )
       $scope.gamesAnalyzed = PlayerData.stats.gamesAnalyzed
     )
@@ -25,6 +27,16 @@ angular.module 'spicyPartyApp'
     ,
     ->
   )
-
+  $scope.avatarURL = (urlname)->
+    if urlname is 'flame'
+      urlname = 'flameprincess'
+    else if urlname is 'princessbubblegum'
+      urlname = 'pb'
+    url = "http://i.cdn.turner.com/toon/games/adventuretime/adventure-time-battle-party/assets/img/champions-icon-" + urlname + ".jpg"
+    return url
   $scope.sortChamps = (el)->
     return el.stats.wins / (el.stats.wins + el.stats.losses)
+
+  $scope.formatPack = (pack)->
+    splitUp = pack.split('_')
+    return splitUp[1] + ' ' + splitUp[2] 
