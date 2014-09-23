@@ -5,7 +5,8 @@ angular.module 'spicyPartyApp'
   $scope.message = 'Hello'
   $scope.champStats = PlayerData.stats.champStats
   $scope.packStats = PlayerData.stats.packStats
-
+  $scope.sortChampKey = 'winRate'
+  $scope.reverse = true
   $scope.$watch(
     ->
       PlayerData.stats
@@ -34,15 +35,25 @@ angular.module 'spicyPartyApp'
       urlname = 'pb'
     url = "http://i.cdn.turner.com/toon/games/adventuretime/adventure-time-battle-party/assets/img/champions-icon-" + urlname + ".jpg"
     return url
-  $scope.sortChamps = (el)->
-    if el.stats.wins is 0
-      return  -el.stats.losses
+  $scope.changeSortKey = (key)->
+    if key is $scope.sortChampKey
+      console.log key
+      $scope.reverse = !$scope.reverse
+      console.log $scope.reverse
     else
-      return el.stats.wins / (el.stats.wins + el.stats.losses)
+      $scope.sortChampKey = key
+  $scope.sortChamps = (el)->
+    if $scope.sortChampKey is 'winRate'
+      if el.stats.wins is 0
+        return  -el.stats.losses
+      else
+        return el.stats.wins / (el.stats.wins + el.stats.losses)
+    else
+      return el.stats[$scope.sortChampKey]
 
   $scope.formatPack = (pack)->
     splitUp = pack.split('_')
     if splitUp[2]
-      return splitUp[1]
-    else
       return splitUp[1] + ' ' + splitUp[2] 
+    else
+      return splitUp[1]
