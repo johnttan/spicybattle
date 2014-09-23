@@ -35,7 +35,10 @@ angular.module 'spicyPartyApp'
     url = "http://i.cdn.turner.com/toon/games/adventuretime/adventure-time-battle-party/assets/img/champions-icon-" + urlname + ".jpg"
     return url
   $scope.sortChamps = (el)->
-    return el.stats.wins / (el.stats.wins + el.stats.losses)
+    if el.stats.wins is 0
+      return  -el.stats.losses
+    else
+      return el.stats.wins / (el.stats.wins + el.stats.losses)
 
   $scope.formatPack = (pack)->
     splitUp = pack.split('_')
