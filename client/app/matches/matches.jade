@@ -1,6 +1,5 @@
 .ui.segment(ng-repeat="game in gameLog | orderBy:'-_date'")
-  .ui.inverted.top.attached.center.aligned.red.huge.header {{game.balanceType}} | {{gameWin(game)}} ({{game.elo}} ELO) | KDA {{game.kills + '/' + game.deaths + '/' + game.assists}} 
-  .ui.center.aligned.header {{changeToDate(game._date) | amDateFormat:'dddd, MMMM Do YYYY, h:mm a'}}
+  .ui.inverted.top.attached.center.aligned.huge.header(ng-class="gameWin(game, true)") {{game.balanceType}} | {{gameWin(game)}} ({{game.elo}} ELO) | {{changeToDate(game._date) | amDateFormat:'dddd, MMMM Do YYYY, h:mm a'}}
   .ui.grid
     .four.column.row
       .four.wide.right.aligned.column
@@ -16,7 +15,8 @@
           .ui.purple.header {{game.teammate2}}
           img(ng-src="{{avatarURL(game.teammate2)}}")
       .ten.wide.left.aligned.column
-        .ui.large.header {{backpackBuild(game)}}
-        .ui.large.header Score {{game.score}} | Towers {{game.towers}} | Minions {{game.minions}} | Jungle {{game.jungleMobs}} | Dead {{convertToSec(game.timeDead) + ' seconds'}}
-        .ui.large.header Winning team {{game.winTeamElo}} ELO | Losing team {{game.loseTeamElo}} ELO
-        .ui.large.header Largest Spree {{game.largestSpree}} | Damage Dealt {{game.damageDealtTotal}} | Physical Damage {{game.damageDealtPhysical}} | Magic Damage {{game.damageDealtSpell}}
+        .ui.huge.header {{backpackBuild(game)}}
+        .ui.huge.header KDA {{game.kills + '/' + game.deaths + '/' + game.assists}} | Score {{game.score}} 
+        .ui.large.header Towers {{game.towers}} | Minions {{game.minions}} | Jungle {{game.jungleMobs}} | Dead {{convertToSec(game.timeDead) + ' seconds'}} | Largest Spree {{game.largestSpree}}
+        .ui.large.header Winning Team {{game.winTeamElo}} ELO | Losing Team {{game.loseTeamElo}} ELO
+        .ui.large.header  Damage Dealt {{game.damageDealtTotal}} | Physical Damage {{game.damageDealtPhysical}} | Magic Damage {{game.damageDealtSpell}}

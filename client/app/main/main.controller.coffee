@@ -6,10 +6,14 @@ angular.module 'spicyPartyApp'
   $scope.convertName = PlayerData.convertName
   $scope.playerData = PlayerData
   $scope.recentSearches = Recent.getRecent()
-  $scope.gameWin = (game)->
+  $scope.gameWin = (game, returnColor)->
     if parseInt(game.elo) > 0
+      if returnColor
+        return 'blue'
       return 'WIN'
     else
+      if returnColor
+        return 'red'
       return 'LOSS'
   $scope.tierConvert = (tier)->
     return parseInt(tier) + 1
