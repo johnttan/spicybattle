@@ -6,7 +6,7 @@
       .ui.huge.ordered.list
           a.item(ng-repeat="leader in leaders | orderBy:'profile.elo':true" ng-click="searchPlayer(leader.playerName)"){{leader.playerName}} | {{leader.profile.elo}}
     .eight.wide.left.aligned.column
-      .ui.huge.header Global Champions Stats (last {{globalStats.gamesAnalyzed}} games)
+      .ui.huge.header Global Champions Stats (last {{globalStats.gamesAnalyzed}} games) | Updated every hour
       .ui.buttons
         .ui.button(ng-click="changeSortKey('winRate')") Win Rate
         .ui.button(ng-click="changeSortKey('elo')") ELO
