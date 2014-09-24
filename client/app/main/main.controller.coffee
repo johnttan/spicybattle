@@ -22,9 +22,19 @@ angular.module 'spicyPartyApp'
     'd':'3'
     'e':'4'
   }
+  convertFour = {
+    'a':'Bronze'
+    'b':'Silver'
+    'c':'Gold'
+    'd':'Teal'
+    'e':'Purple'
+  }
   $scope.tierConvert = (tier)->
     if tier
-      return tier[0] + '/' + convert[tier[1]]
+      if tier[0] is '4'
+        return convertFour[tier[1]]
+      else
+        return tier[0] + '/' + convert[tier[1]]
     else
       return
   $scope.backpackBuild = (game)->
