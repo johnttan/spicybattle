@@ -10,7 +10,7 @@
       .ui.large.header Kills {{profile.kills / profile.playsPVP | number:2}} | Deaths {{profile.assists / profile.playsPVP | number:2}} | Assists {{profile.assists / profile.playsPVP | number:2}} | Score {{profile.scoreTotal / profile.playsPVP | number:2}}
       .ui.large.header Towers {{profile.towers / profile.playsPVP | number:2}} | Minions (Jungle+Lane) {{(profile.minions + profile.jungleMobs) / profile.playsPVP | number:2}} | Altars {{profile.altars / profile.playsPVP | number:2}} 
   .row
-    .ten.wide.left.aligned.column
+    .twelve.wide.left.aligned.column
       .ui.huge.header Champions Stats (last {{gamesAnalyzed}} games)
       .ui.buttons
         .ui.button(ng-click="changeSortKey('winRate')") Win Rate
@@ -25,17 +25,18 @@
         .item(ng-repeat='statObj in champStats | orderBy:sortChamps:reverse')
           .ui.rounded.left.floated.image 
             img(ng-src="{{avatarURL(statObj.name)}}")
-          .ui.large.header {{statObj.name}} {{statObj.stats.wins / statObj.stats.totalGames * 100 | number:1}}% wins
+          .ui.large.header {{statObj.name}} {{statObj.stats.averages.wins * 100 | number:1}}% wins
           .ui.large.header ELO {{statObj.stats.elo}}  | Wins {{statObj.stats.wins}} | Losses {{statObj.stats.losses}}
+          span.ui.large.header(ng-repeat='belt in statObj.stats.belts | orderBy:"games":true') {{formatPack(belt.name)}} {{belt.games}} games | 
           .ui.header Per Game Averages
-          .ui.large.header kills {{statObj.stats.kills / statObj.stats.totalGames | number:2}} | 
-            |deaths {{statObj.stats.deaths / statObj.stats.totalGames | number:2}} | assists {{statObj.stats.deaths / statObj.stats.totalGames | number:2}} | 
-            |jungle {{statObj.stats.jungleMobs / statObj.stats.totalGames | number:2}} | score {{statObj.stats.scoreTotal / statObj.stats.totalGames | number:2}}
+          .ui.large.header kills {{statObj.stats.averages.kills | number:2}} | 
+            |deaths {{statObj.stats.averages.deaths | number:2}} | assists {{statObj.stats.averages.assists | number:2}} | 
+            |jungle {{statObj.stats.averages.jungleMobs | number:2}} | score {{statObj.stats.averages.scoreTotal | number:2}}
           .ui.divider
-    .six.wide.left.aligned.column
+    .four.wide.left.aligned.column
       .ui.huge.header Backpack Stats 
       .ui.divider
       .ui.list
         .item(ng-repeat='statObj in packStats | orderBy:sortChamps:reverse')
           .ui.large.header {{formatPack(statObj.name)}}
-          .ui.header Win Rate {{statObj.stats.wins / statObj.stats.totalGames * 100 | number:1}}% | Wins {{statObj.stats.wins}} | Losses {{statObj.stats.losses}}
+          .ui.header Win Rate {{statObj.stats.averages.wins * 100 | number:1}}% | Wins {{statObj.stats.wins}} | Losses {{statObj.stats.losses}}

@@ -23,7 +23,6 @@ angular.module 'spicyPartyApp'
         @playerName = @convertName(playerData.profile.playerName)
         @recentSearches = @addRecent(@playerName, playerData)
         @stats = @getStats(playerData.gameLog)
-        console.log @stats
       searchPlayer: (playerName, error)=>
         @profile = {}
         @gameLog = []

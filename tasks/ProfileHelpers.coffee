@@ -1,13 +1,11 @@
-'use strict'
-angular.module 'spicyPartyApp'
-.service 'ProfileStats', [
-  class ProfileStats
+_ = require 'lodash'
+class ProfileStats
     constructor: ->
     getStats: (gameLog)=>
       gamesAnalyzed = gameLog.length
       [champStats, packStats] = @calcChampsAndPacks(gameLog)
-      champStats = @calcPerGameAverages(champStats)
-      packStats = @calcPerGameAverages(packStats)
+      # champStats = @calcPerGameAverages(champStats)
+      # packStats = @calcPerGameAverages(packStats)
       return {
         champStats: champStats
         packStats: packStats
@@ -68,6 +66,4 @@ angular.module 'spicyPartyApp'
         return
       )
       return [champStats, packStats]
-
-
-]
+exports.profileClass = ProfileStats

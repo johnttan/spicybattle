@@ -13,13 +13,16 @@ angular.module 'spicyPartyApp'
     ,
     ->
       $scope.champStats = _.map(PlayerData.stats.champStats, (el, key)->
-          el.totalGames = el.wins + el.losses
           return {name: key, stats: el}
       )
       $scope.packStats = _.map(PlayerData.stats.packStats, (el, key)->
-          el.totalGames = el.wins + el.losses
           return {name: key, stats: el}
       )
+      _.each($scope.champStats, (el)->
+          el.stats.belts = _.map(el.stats.belts, (el1, key)->
+              return {name: key, games: el1}
+            )
+        )
       $scope.gamesAnalyzed = PlayerData.stats.gamesAnalyzed
     )
   $scope.$watch(
@@ -47,9 +50,9 @@ angular.module 'spicyPartyApp'
       if el.stats.wins is 0
         return  -el.stats.losses
       else
-        return el.stats.wins / (el.stats.wins + el.stats.losses)
+        return el.stats.averages.wins
     else
-      return el.stats[$scope.sortChampKey]
+      return el.stats.averages[$scope.sortChampKey]
 
   $scope.formatPack = (pack)->
     splitUp = pack.split('_')
