@@ -1,7 +1,7 @@
 'use strict'
 # To to refactor out the big functions.
 angular.module 'spicyPartyApp'
-.controller 'MainCtrl', ($scope, $http, Recent, PlayerData, $location, $state, $stateParams) ->
+.controller 'MainCtrl', ($scope, $http, Recent, PlayerData, $location, $state, $stateParams, Statistics) ->
   $scope.search = {}
   $scope.convertName = PlayerData.convertName
   $scope.playerData = PlayerData
@@ -80,6 +80,7 @@ angular.module 'spicyPartyApp'
       $location.path('/' + playerName + '/' + location.split('.')[1])
     
     if location is 'main.leaderboard'
+      Statistics.getEloLeaderboard()
       if $scope.profile
         playerParam = $scope.convertName($scope.profile.playerName)
       else
