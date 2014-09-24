@@ -12,7 +12,6 @@ globalStats = {}
 mapReduce = 
     do(getStats=ProfileHelper.getStats, globalStats=globalStats, lodash=lodash)->
       map = (data)->
-        console.log data.playerName
         stats = getStats(data.gameLog)
         if 'champStats' not of globalStats
           lodash.merge(globalStats, stats)
