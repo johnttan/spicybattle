@@ -1,4 +1,3 @@
-.ui.header Updated every 10 minutes
 .ui.grid
   .row
     .four.wide.left.aligned.column
@@ -35,3 +34,4 @@
         .item(ng-repeat='statObj in globalStats.packStats | orderBy:sortChamps:reverse')
           .ui.large.header {{formatPack(statObj.name)}}
           .ui.header Win Rate {{statObj.stats.averages.wins * 100 | number:1}}% | Wins {{statObj.stats.wins}} | Losses {{statObj.stats.losses}}
+          .ui.divider
