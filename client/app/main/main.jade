@@ -14,7 +14,7 @@
           .ui.header Last Updated : {{lastUpdated | amDateFormat:'dddd, MMMM Do YYYY, h:mm a'}}
           a.item.header.red(ng-click="goTo('main.matches')" ng-class="{active:checkLocation('/matches')}") Match History
           a.item.header.green(ng-click="goTo('main.profile')" ng-class="{active:checkLocation('/profile')}") Profile
-          a.item.header.blue(ng-click="goTo('main.leaderboard')" ng-class="{active:checkLocation('/leaderboard')}") Leaderboard
+          a.item.header.blue(ng-click="goTo('main.leaderboard')" ng-class="{active:checkLocation('/leaderboard')}") Leaderboard and Global Statistics
           .item.header Recent Searches
             .menu
               a.item(ng-repeat="(name, object) in recentSearches" ng-click="searchPlayer(name)" ng-if="object.display") {{convertName(name, true)}} {{object.time | date:short}}

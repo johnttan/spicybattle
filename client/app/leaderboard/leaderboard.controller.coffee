@@ -5,6 +5,8 @@ angular.module 'spicyPartyApp'
   Statistics.getEloLeaderboard()
   $scope.leaders = Statistics.leaders
   $scope.globalStats = Statistics.globalStats
+  $scope.sortChampKey = 'winRate'
+  $scope.reverse = true
   $scope.$watch(
     ->
       return Statistics.leaders
@@ -44,6 +46,8 @@ angular.module 'spicyPartyApp'
         return  -el.stats.losses
       else
         return el.stats.averages.wins
+    else if $scope.sortChampKey is 'wins' or $scope.sortChampKey is 'losses'
+      return el.stats[$scope.sortChampKey]
     else
       return el.stats.averages[$scope.sortChampKey]
 
