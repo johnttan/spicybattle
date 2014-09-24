@@ -1,38 +1,29 @@
 'use strict'
 # To to refactor out the big functions.
 angular.module 'spicyPartyApp'
-.controller 'MainCtrl', ($scope, $http, Recent, $location, $state, $stateParams) ->
+.controller 'MainCtrl', ($scope, $http, Recent, PlayerData, $location, $state, $stateParams, Statistics) ->
   $scope.search = {}
+  $scope.convertName = PlayerData.convertName
+  $scope.playerData = PlayerData
   $scope.recentSearches = Recent.getRecent()
-  $scope.addRecent = Recent.addRecent
-  $scope.gameWin = (game)->
+  $scope.gameWin = (game, returnColor)->
     if parseInt(game.elo) > 0
+      if returnColor
+        return 'blue'
       return 'WIN'
     else
+      if returnColor
+        return 'red'
       return 'LOSS'
   $scope.tierConvert = (tier)->
     return parseInt(tier) + 1
-  $scope.convertName = (playerName, decode)->
-    if decode
-      return playerName.split('.').join(' ')
-    else
-      return playerName.split(' ').join('.').toUpperCase()
   $scope.backpackBuild = (game)->
     belt = game.belt.split('_')
     belt[0] = ''
     belt = belt.join(' ')
     build = game.item1 + '/' + game.item2 + '/' + game.item3 + '/' + game.item4 + '/' + game.item5
     return belt + '  ' + build
-  loadPlayerData = do(scope=$scope, state = $state, location=$location)->
-    return (playerData)->
-      scope.error = ''
-      scope.profile = playerData.profile
-      scope.gameLog = playerData.gameLog
-      scope.playerData = playerData
-      playerName = $scope.convertName(playerData.profile.playerName)
-      scope.recentSearches = $scope.addRecent(playerName, playerData)
-      state.go('main.matches', {player: playerName})
-      location.path('/' + playerName + '/matches')
+
   errorSearch = do(scope=$scope)->
     return (error)->
       console.log error
@@ -41,21 +32,29 @@ angular.module 'spicyPartyApp'
       else
         scope.error = 'No player found'
 
+  $scope.$watch(
+    ->
+      PlayerData.playerData
+    ,
+    ->
+      if PlayerData.playerData.profile
+        $scope.error = ''
+      $scope.playerData = PlayerData.playerData
+      $scope.profile = PlayerData.profile
+      $scope.gameLog = PlayerData.gameLog
+      $scope.playerName = PlayerData.playerName
+      $scope.recentSearches = PlayerData.recentSearches
+    )
+
   $scope.searchPlayer = (playerName)->
     if playerName
       console.log(playerName, 'searching')
-      playerName = $scope.convertName(playerName)
-      playerCache = Recent.checkRecent(playerName, $scope.searchPlayer)
       $scope.lastUpdated = new Date()
-      if playerCache
-        console.log('cache found')
-        loadPlayerData(playerCache)
-      else
-        $scope.error = 'Loading Player Data'
-        $scope.profile = {}
-        $scope.gameLog = []
-        $scope.playerData = {}
-        $http.get("/api/data/" + playerName).success(loadPlayerData).error(errorSearch)
+      $scope.error = 'Loading Player Data'
+      playerName = $scope.convertName(playerName)
+      $state.go('main.matches', {player: playerName})
+      $location.path('/' + playerName + '/matches')
+      PlayerData.searchPlayer(playerName, errorSearch)
 
   $scope.clearHistory = ->
     $scope.recentSearches = Recent.clearHistory()
@@ -81,6 +80,7 @@ angular.module 'spicyPartyApp'
       $location.path('/' + playerName + '/' + location.split('.')[1])
     
     if location is 'main.leaderboard'
+      Statistics.getEloLeaderboard()
       if $scope.profile
         playerParam = $scope.convertName($scope.profile.playerName)
       else

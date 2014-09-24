@@ -1,50 +1,42 @@
 .ui.grid
   .row
-    .four.wide.right.aligned.column
-      .ui.large.header Lifetime
-      .ui.header Tier : 
-      .ui.header Wins : 
-      .ui.header Losses : 
-      .ui.header Knockouts : 
-      .ui.header Defeats : 
-      .ui.header Assists : 
-      .ui.header Towers : 
-      .ui.header Largest Spree : 
-      .ui.header Minions : 
-      .ui.header Jungle Minions :
-      .ui.header Altars :  
-      .ui.header Highest Score : 
-      .ui.header Total Score : 
+    .eight.wide.left.aligned.column
+      .ui.huge.header Lifetime Statistics
+      .ui.large.header Tier {{tierConvert(profile.tier)}} | Wins {{profile.winsPVP}} | Losses {{profile.playsPVP - profile.winsPVP}} | Total Score {{profile.scoreTotal}}
+      .ui.large.header Kills  {{profile.kills}} | Deaths {{profile.deaths}} | Assists {{profile.assists}} | Towers {{profile.towers}} | Altars {{profile.altars}}
+      .ui.large.header Minions {{profile.minions}} | Jungle {{profile.jungleMobs}} | Largest Spree {{profile.largestSpree}} | Highest Score {{profile.scoreHighest}}
+    .eight.wide.left.aligned.column
+      .ui.huge.header Per Game Averages
+      .ui.large.header Kills {{profile.kills / profile.playsPVP | number:2}} | Deaths {{profile.assists / profile.playsPVP | number:2}} | Assists {{profile.assists / profile.playsPVP | number:2}} | Score {{profile.scoreTotal / profile.playsPVP | number:2}}
+      .ui.large.header Towers {{profile.towers / profile.playsPVP | number:2}} | Minions (Jungle+Lane) {{(profile.minions + profile.jungleMobs) / profile.playsPVP | number:2}} | Altars {{profile.altars / profile.playsPVP | number:2}} 
+  .row
+    .twelve.wide.left.aligned.column
+      .ui.huge.header Champions Stats (last {{gamesAnalyzed}} games)
+      .ui.buttons
+        .ui.button(ng-click="changeSortKey('winRate')") Win Rate
+        .ui.button(ng-click="changeSortKey('elo')") ELO/g
+        .ui.blue.button(ng-click="changeSortKey('wins')") Wins
+        .ui.red.button(ng-click="changeSortKey('losses')") Losses
+        .ui.green.button(ng-click="changeSortKey('kills')") Kills/g
+        .ui.yellow.button(ng-click="changeSortKey('deaths')") Deaths/g
+        .ui.purple.button(ng-click="changeSortKey('assists')") Assists/g
+      .ui.divider
+      .ui.list
+        .item(ng-repeat='statObj in champStats | orderBy:sortChamps:reverse')
+          .ui.rounded.left.floated.image 
+            img(ng-src="{{avatarURL(statObj.name)}}")
+          .ui.large.header {{statObj.name}} {{statObj.stats.averages.wins * 100 | number:1}}% wins
+          .ui.large.header ELO {{statObj.stats.elo}}  | Wins {{statObj.stats.wins}} | Losses {{statObj.stats.losses}}
+          span.ui.large.header(ng-repeat='belt in statObj.stats.belts | orderBy:"games":true') {{formatPack(belt.name)}} {{belt.games}} games | 
+          .ui.header Per Game Averages
+          .ui.large.header kills {{statObj.stats.averages.kills | number:2}} | 
+            |deaths {{statObj.stats.averages.deaths | number:2}} | assists {{statObj.stats.averages.assists | number:2}} | 
+            |jungle {{statObj.stats.averages.jungleMobs | number:2}} | score {{statObj.stats.averages.scoreTotal | number:2}}
+          .ui.divider
     .four.wide.left.aligned.column
-      .ui.large.header Statistics
-      .ui.header {{tierConvert(profile.tier)}}
-      .ui.header {{profile.winsPVP}}
-      .ui.header {{profile.playsPVP - profile.winsPVP}}
-      .ui.header {{profile.kills}}
-      .ui.header {{profile.deaths}}
-      .ui.header {{profile.assists}}
-      .ui.header {{profile.towers}}
-      .ui.header {{profile.largestSpree}}
-      .ui.header {{profile.minions}}
-      .ui.header {{profile.jungleMobs}}
-      .ui.header {{profile.altars}}
-      .ui.header {{profile.scoreHighest}}
-      .ui.header {{profile.scoreTotal}}
-    .four.wide.right.aligned.column
-      .ui.large.header Per Game
-      .ui.header Knockouts : 
-      .ui.header Defeats : 
-      .ui.header Assists : 
-      .ui.header Towers : 
-      .ui.header Minions (Jungle+Lane) : 
-      .ui.header Altars : 
-      .ui.header Score : 
-    .four.wide.left.aligned.column
-      .ui.large.header Averages
-      .ui.header {{profile.kills / profile.playsPVP | number:2}}
-      .ui.header {{profile.deaths / profile.playsPVP | number:2}}
-      .ui.header {{profile.assists / profile.playsPVP | number:2}}
-      .ui.header {{profile.towers / profile.playsPVP | number:2}}
-      .ui.header {{(profile.minions + profile.jungleMobs) / profile.playsPVP | number:2}}
-      .ui.header {{profile.altars / profile.playsPVP | number:2}}
-      .ui.header {{profile.scoreTotal / profile.playsPVP | number:2}}
+      .ui.huge.header Backpack Stats 
+      .ui.divider
+      .ui.list
+        .item(ng-repeat='statObj in packStats | orderBy:sortChamps:reverse')
+          .ui.large.header {{formatPack(statObj.name)}}
+          .ui.header Win Rate {{statObj.stats.averages.wins * 100 | number:1}}% | Wins {{statObj.stats.wins}} | Losses {{statObj.stats.losses}}

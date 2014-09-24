@@ -2,9 +2,10 @@
   .ui.grid
     .two.column.row
       .column.ui.vertical.menu#sidebar
-          .ui.header ALPHA 1.4.1
-          .ui.header Displayed player data will auto-refresh immediately if latest game available is > 15 mins old, and every 5 mins after.
-          .ui.header Otherwise it will auto-refresh within 15 minutes of the latest game.
+          .ui.header ALPHA 1.6.0
+          .ui.header Global statistics now available!
+          .ui.header Added additional Profile Stats!
+          .ui.header Data auto-refreshes intermittently
           .ui.action.input#searchBox
             input(ng-model="search.player")
             .ui.button.blue(ng-click="searchPlayer(search.player)") Search
@@ -13,13 +14,13 @@
           .ui.header Last Updated : {{lastUpdated | amDateFormat:'dddd, MMMM Do YYYY, h:mm a'}}
           a.item.header.red(ng-click="goTo('main.matches')" ng-class="{active:checkLocation('/matches')}") Match History
           a.item.header.green(ng-click="goTo('main.profile')" ng-class="{active:checkLocation('/profile')}") Profile
-          a.item.header.blue(ng-click="goTo('main.leaderboard')" ng-class="{active:checkLocation('/leaderboard')}") Leaderboard
+          a.item.header.blue(ng-click="goTo('main.leaderboard')" ng-class="{active:checkLocation('/leaderboard')}") Leaderboard and Global Statistics
           .item.header Recent Searches
             .menu
               a.item(ng-repeat="(name, object) in recentSearches" ng-click="searchPlayer(name)" ng-if="object.display") {{convertName(name, true)}} {{object.time | date:short}}
             span.ui.small.button(ng-click="clearHistory()") Clear
       .column#dataView
-        div(ng-show="checkLocation('/profile')")
+        div(ng-show="checkLocation('/profile')" ng-controller="ProfileCtrl")
           include ../profile/profile.jade
         div(ng-show="checkLocation('/matches')")
           include ../matches/matches.jade
