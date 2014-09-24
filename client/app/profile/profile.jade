@@ -14,12 +14,12 @@
       .ui.huge.header Champions Stats (last {{gamesAnalyzed}} games)
       .ui.buttons
         .ui.button(ng-click="changeSortKey('winRate')") Win Rate
-        .ui.button(ng-click="changeSortKey('elo')") ELO
+        .ui.button(ng-click="changeSortKey('elo')") ELO/g
         .ui.blue.button(ng-click="changeSortKey('wins')") Wins
         .ui.red.button(ng-click="changeSortKey('losses')") Losses
-        .ui.green.button(ng-click="changeSortKey('kills')") Kills
-        .ui.yellow.button(ng-click="changeSortKey('deaths')") Deaths
-        .ui.purple.button(ng-click="changeSortKey('assists')") Assists
+        .ui.green.button(ng-click="changeSortKey('kills')") Kills/g
+        .ui.yellow.button(ng-click="changeSortKey('deaths')") Deaths/g
+        .ui.purple.button(ng-click="changeSortKey('assists')") Assists/g
       .ui.divider
       .ui.list
         .item(ng-repeat='statObj in champStats | orderBy:sortChamps:reverse')
