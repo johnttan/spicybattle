@@ -7,7 +7,7 @@
       .ui.large.header Minions {{profile.minions}} | Jungle {{profile.jungleMobs}} | Largest Spree {{profile.largestSpree}} | Highest Score {{profile.scoreHighest}}
     .eight.wide.left.aligned.column
       .ui.huge.header Per Game Averages
-      .ui.large.header Kills {{profile.kills / profile.playsPVP | number:2}} | Deaths {{profile.assists / profile.playsPVP | number:2}} | Assists {{profile.assists / profile.playsPVP | number:2}} | Score {{profile.scoreTotal / profile.playsPVP | number:2}}
+      .ui.large.header Kills {{profile.kills / profile.playsPVP | number:2}} | Deaths {{profile.deaths / profile.playsPVP | number:2}} | Assists {{profile.assists / profile.playsPVP | number:2}} | Score {{profile.scoreTotal / profile.playsPVP | number:2}}
       .ui.large.header Towers {{profile.towers / profile.playsPVP | number:2}} | Minions (Jungle+Lane) {{(profile.minions + profile.jungleMobs) / profile.playsPVP | number:2}} | Altars {{profile.altars / profile.playsPVP | number:2}} 
   .row
     .twelve.wide.left.aligned.column
