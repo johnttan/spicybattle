@@ -24,6 +24,14 @@ mapReduce =
                 if stat not of globalStats.champStats[champ]
                   globalStats.champStats[champ][stat] = 0
                 globalStats.champStats[champ][stat] += value
+              else
+                if 'belts' not of globalStats.champStats[champ]
+                  globalStats.champStats[champ]['belts'] = {}
+                lodash.each(value, (winloss, pack)->
+                  if pack not of globalStats.champStats[champ].belts
+                    globalStats.champStats[champ].belts[pack] = 0
+                  globalStats.champStats[champ].belts[pack] += winloss
+                )
               )
           )
           lodash.each(stats.packStats, (val, key)->
@@ -46,9 +54,11 @@ stream.on('error', ->
   console.log 'error processing stats'
   )
 stream.on('close', 
-  do(globalStats=globalStats)->
+  do(globalStats=globalStats, calcAverages=ProfileHelper.calcPerGameAverages)->
     ->
       console.log 'done processing stats'
+      globalStats.champStats = calcAverages(globalStats.champStats)
+      globalStats.packStats = calcAverages(globalStats.packStats)
       Statistics.update({name: 'globalstats'}, {name: 'globalstats', data:globalStats}, {upsert:true}, (err, numAffected)->
         endTime = new Date()
         console.log endTime - startTime, 'time spent globalstats'
