@@ -27,10 +27,11 @@ angular.module 'spicyPartyApp'
     )
   $scope.$watch(
     ->
-      PlayerData.stats.packStats
+      PlayerData.tier
     ,
     ->
-  )
+      $scope.tier = PlayerData.tier
+    )
   $scope.avatarURL = (urlname)->
     if urlname is 'flame'
       urlname = 'flameprincess'

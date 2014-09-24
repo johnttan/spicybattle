@@ -7,7 +7,10 @@
             input(ng-model="search.player")
             .ui.button.blue(ng-click="searchPlayer(search.player)") Search
           .ui.header.red(ng-show="error") {{error}}
-          .ui.header(ng-show="profile") {{profile.playerName}} | {{profile.elo}} ELO
+          div
+          .ui.header(ng-show="profile") {{profile.playerName}}
+          .ui.huge.red.header(ng-show="profile.elo") {{profile.elo}} ELO 
+            img.ui.avatar.image(ng-src="http://i.cdn.turner.com/toon/games/adventuretime/adventure-time-battle-party/assets/img/icons/rank/icon_ELO_Rank_{{tier}}.png")
           .ui.header(ng-show="lastUpdated") Last Updated : {{lastUpdated | amDateFormat:'dddd, MMMM Do YYYY, h:mm a'}}
           a.item.header.teal(ng-click="goTo('main.home')" ng-class="{active:checkLocation('/')}") Patch Notes | Help
           a.item.header.red(ng-click="goTo('main.matches')" ng-class="{active:checkLocation('/matches')}") Match History

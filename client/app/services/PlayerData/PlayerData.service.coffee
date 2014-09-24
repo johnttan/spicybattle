@@ -11,6 +11,7 @@ angular.module 'spicyPartyApp'
         @playerData = {}
         @recentSearches = Recent.getRecent()
         @stats = {}
+        @tier = ""
       convertName: (playerName, decode)->
         if decode
           return playerName.split('.').join(' ')
@@ -23,6 +24,10 @@ angular.module 'spicyPartyApp'
         @playerName = @convertName(playerData.profile.playerName)
         @recentSearches = @addRecent(@playerName, playerData)
         @stats = @getStats(playerData.gameLog)
+        @http.get("http://ctn-facade.turner.com/service/stats/champions/"+ playerData.userId).success((data)=>
+          @tier = data.badgeVal
+          console.log @tier
+          )
       searchPlayer: (playerName, error)=>
         @profile = {}
         @gameLog = []

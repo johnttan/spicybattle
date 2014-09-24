@@ -15,8 +15,18 @@ angular.module 'spicyPartyApp'
       if returnColor
         return 'red'
       return 'LOSS'
+  convert = {
+    'a':'0'
+    'b':'1'
+    'c':'2'
+    'd':'3'
+    'e':'4'
+  }
   $scope.tierConvert = (tier)->
-    return parseInt(tier) + 1
+    if tier
+      return tier[0] + '/' + convert[tier[1]]
+    else
+      return
   $scope.backpackBuild = (game)->
     belt = game.belt.split('_')
     belt[0] = ''
@@ -45,7 +55,13 @@ angular.module 'spicyPartyApp'
       $scope.playerName = PlayerData.playerName
       $scope.recentSearches = PlayerData.recentSearches
     )
-
+  $scope.$watch(
+    ->
+      PlayerData.tier
+    ,
+    ->
+      $scope.tier = PlayerData.tier
+    )
   $scope.searchPlayer = (playerName)->
     if playerName
       console.log(playerName, 'searching')
