@@ -24,7 +24,7 @@
         .ui.list
           .item(ng-repeat='statObj in globalStats.champStats | orderBy:sortChamps:reverse')
             .ui.rounded.left.floated.image 
-              .ui.purple.header {{statObj.playerName}} {{statObj.stats.averages.wins * 100 | number:1}}% wins
+              .ui.large.red.header {{statObj.name}} {{statObj.stats.averages.wins * 100 | number:1}}% wins
               img(ng-src="{{avatarURL(statObj.name)}}")
             .ui.large.header   Wins {{statObj.stats.wins}} | Losses {{statObj.stats.losses}} | ELO {{statObj.stats.elo}}
             span.ui.large.header(ng-repeat='(belt, games) in statObj.stats.belts | orderBy:"games":true' ng-show="(games / statObj.stats.totalGames) > .5") {{formatPack(belt)}} {{games / statObj.stats.totalGames * 100 | number:1}}% of games | 
