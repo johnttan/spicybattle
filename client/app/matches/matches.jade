@@ -16,7 +16,18 @@
           img(ng-src="{{avatarURL(game.teammate2)}}")
       .ten.wide.left.aligned.column
         .ui.huge.header {{backpackBuild(game)}}
-        .ui.huge.header KDA {{game.kills + '/' + game.deaths + '/' + game.assists}} | Score {{game.score}} 
-        .ui.large.header Towers {{game.towers}} | Minions {{game.minions}} | Jungle {{game.jungleMobs}} | Dead {{convertToSec(game.timeDead) + ' seconds'}} | Largest Spree {{game.largestSpree}}
-        .ui.large.header Winning Team {{game.winTeamElo}} ELO | Losing Team {{game.loseTeamElo}} ELO
-        .ui.large.header  Damage Dealt {{game.damageDealtTotal}} | Physical Damage {{game.damageDealtPhysical}} | Magic Damage {{game.damageDealtSpell}}
+        span.ui.huge.header.red KDA {{game.kills + '/' + game.deaths + '/' + game.assists}} | 
+        span.ui.huge.header.green Score {{game.score}} 
+        .ui.divider
+        span.ui.large.header Towers {{game.towers}} | 
+        span.ui.large.header Minions {{game.minions}} | 
+        span.ui.large.header Jungle {{game.jungleMobs}} | 
+        span.ui.large.header Dead {{convertToSec(game.timeDead) + ' seconds'}} | 
+        span.ui.large.header Largest Spree {{game.largestSpree}}
+        div
+        span.ui.large.header Winning Team {{game.winTeamElo}} ELO | 
+        span.ui.large.header Losing Team {{game.loseTeamElo}} ELO
+        div
+        span.ui.large.header Damage Dealt {{game.damageDealtTotal}} | 
+        span.ui.large.header Physical Damage {{game.damageDealtPhysical}} | 
+        span.ui.large.header Magic Damage {{game.damageDealtSpell}}

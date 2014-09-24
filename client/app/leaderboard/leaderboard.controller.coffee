@@ -3,6 +3,7 @@
 angular.module 'spicyPartyApp'
 .controller 'LeaderboardCtrl', ($scope, $rootScope, Statistics) ->
   Statistics.getEloLeaderboard()
+  Statistics.getGlobalStats()
   $scope.leaders = Statistics.leaders
   $scope.globalStats = Statistics.globalStats
   $scope.sortChampKey = 'winRate'

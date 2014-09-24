@@ -52,8 +52,15 @@ angular.module 'spicyPartyApp'
       $scope.lastUpdated = new Date()
       $scope.error = 'Loading Player Data'
       playerName = $scope.convertName(playerName)
-      $state.go('main.matches', {player: playerName})
-      $location.path('/' + playerName + '/matches')
+      path = $location.path().split('/')
+      goState = 'main.'
+      secondUrl = 'matches'
+      if path[2]
+        secondUrl = path[2]
+        console.log secondUrl
+      goState += secondUrl
+      $state.go(goState, {player: playerName})
+      $location.path('/' + playerName + '/' + secondUrl)
       PlayerData.searchPlayer(playerName, errorSearch)
 
   $scope.clearHistory = ->
@@ -81,6 +88,7 @@ angular.module 'spicyPartyApp'
     
     if location is 'main.leaderboard'
       Statistics.getEloLeaderboard()
+      Statistics.getGlobalStats()
       if $scope.profile
         playerParam = $scope.convertName($scope.profile.playerName)
       else

@@ -4,8 +4,6 @@ class ProfileStats
     getStats: (gameLog)=>
       gamesAnalyzed = gameLog.length
       [champStats, packStats] = @calcChampsAndPacks(gameLog)
-      # champStats = @calcPerGameAverages(champStats)
-      # packStats = @calcPerGameAverages(packStats)
       return {
         champStats: champStats
         packStats: packStats
