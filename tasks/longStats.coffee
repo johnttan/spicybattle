@@ -38,6 +38,7 @@ mapReduce =
           globalStats.gamesAnalyzed += stats.gamesAnalyzed
 
       return map
+console.log 'begin processing globalstats'
 startTime = new Date()
 stream = Data.find().stream()
 stream.on('data', mapReduce)
