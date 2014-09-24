@@ -20,7 +20,7 @@
           .ui.rounded.left.floated.image 
             img(ng-src="{{avatarURL(statObj.name)}}")
           .ui.large.header {{statObj.name}} {{statObj.stats.averages.wins * 100 | number:1}}% wins
-          .ui.large.header ELO {{statObj.stats.elo}}  | Wins {{statObj.stats.wins}} | Losses {{statObj.stats.losses}}
+          .ui.large.header   Wins {{statObj.stats.wins}} | Losses {{statObj.stats.losses}} | ELO {{statObj.stats.elo}}
           span.ui.large.header(ng-repeat='(belt, games) in statObj.stats.belts | orderBy:"games":true' ng-show="(games / statObj.stats.totalGames) > .5") {{formatPack(belt)}} {{games / statObj.stats.totalGames * 100 | number:1}}% of games | 
           .ui.header Per Game Averages
           .ui.large.header kills {{statObj.stats.averages.kills | number:2}} | 
