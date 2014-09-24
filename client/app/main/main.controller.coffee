@@ -66,7 +66,11 @@ angular.module 'spicyPartyApp'
   $scope.clearHistory = ->
     $scope.recentSearches = Recent.clearHistory()
   $scope.checkLocation = (location)->
-    return '/' +$location.path().split('/')[2] is location
+    altLoc = $location.path().split('/')[2]
+    if not altLoc
+      return '/' is location
+    else
+      return '/' + $location.path().split('/')[2] is location
   $scope.convertToSec = (ms)->
     return parseInt(ms / 1000)
   $scope.changeToDate = (dateString)->
@@ -81,15 +85,13 @@ angular.module 'spicyPartyApp'
     url = "http://i.cdn.turner.com/toon/games/adventuretime/adventure-time-battle-party/assets/img/champions-icon-" + urlname + ".jpg"
     return url
   $scope.goTo = (location)->
-    if $scope.profile
+    if $scope.profile and $scope.profile.playerName
       playerName = $scope.convertName($scope.profile.playerName)
       $state.go(location, {player: playerName})
-      $location.path('/' + playerName + '/' + location.split('.')[1])
-    
     if location is 'main.leaderboard'
       Statistics.getEloLeaderboard()
       Statistics.getGlobalStats()
-      if $scope.profile
+      if $scope.profile and $scope.profile.playerName
         playerParam = $scope.convertName($scope.profile.playerName)
       else
         playerParam = 'beta'
