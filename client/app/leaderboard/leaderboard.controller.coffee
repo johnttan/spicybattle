@@ -23,11 +23,6 @@ angular.module 'spicyPartyApp'
     ->
       $scope.globalStats = Statistics.globalStats
     )
-  $rootScope.$on('$stateChangeSuccess', (event, toState, fromState)->
-    if toState.name == 'main.leaderboard'
-      Statistics.getEloLeaderboard()
-      Statistics.getGlobalStats()
-    )
   $scope.avatarURL = (urlname)->
     if urlname is 'flame'
       urlname = 'flameprincess'
