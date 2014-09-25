@@ -27,7 +27,7 @@
               .ui.large.red.header {{statObj.name}} {{statObj.stats.averages.wins * 100 | number:1}}% wins
               img(ng-src="{{avatarURL(statObj.name)}}")
             .ui.large.header   {{statObj.stats.wins}} Wins | {{statObj.stats.losses}} Losses | {{statObj.stats.elo}} ELO 
-            span.ui.large.header(ng-repeat='(belt, games) in statObj.stats.belts | orderBy:"games":true' ng-show="(games / statObj.stats.totalGames) > .5") {{formatPack(belt)}} {{games / statObj.stats.totalGames * 100 | number:1}}% of games | 
+            span.ui.large.header(ng-repeat='(belt, games) in statObj.stats.belts | orderBy:"games":true' ng-show="(games / statObj.stats.totalGames) > .2") {{formatPack(belt)}} {{games / statObj.stats.totalGames * 100 | number:1}}% of games | 
             .ui.header Per Game Averages
             .ui.large.header {{statObj.stats.averages.kills | number:2}} kills | 
               |{{statObj.stats.averages.deaths | number:2}} deaths | {{statObj.stats.averages.assists | number:2}} assists | 
@@ -37,7 +37,7 @@
         .ui.huge.header Global Backpack Stats | Updates every hour
         .ui.buttons
           .ui.button(ng-click="changeSortKey('winRate')") Win Rate
-          .ui.button(ng-click="changeSortKey('elo')") ELO/g
+          //- .ui.button(ng-click="changeSortKey('elo')") ELO/g
           .ui.blue.button(ng-click="changeSortKey('wins')") Wins
           .ui.red.button(ng-click="changeSortKey('losses')") Losses
           //- .ui.green.button(ng-click="changeSortKey('kills')") Kills/g
