@@ -29,11 +29,12 @@ module.exports = function(app) {
   app.use(cookieParser());
   app.use(cors());
   app.set('trust proxy', true);
+  var logFormat = '\x1b[34m:remote-addr | \x1b[37m:response-time ms \x1b[30m:method \x1b[34m:status \x1b[32m:url \x1b[31m:res[content-length] \x1b[0m';
   if ('production' === env) {
     app.use(favicon(path.join(config.root, 'public', 'favicon.ico')));
     app.use(express.static(path.join(config.root, 'public')));
     app.set('appPath', config.root + '/public');
-    app.use(morgan('dev'));
+    app.use(morgan(logFormat));
   }
 
   if ('development' === env || 'test' === env) {
@@ -41,7 +42,7 @@ module.exports = function(app) {
     app.use(express.static(path.join(config.root, '.tmp')));
     app.use(express.static(path.join(config.root, 'client')));
     app.set('appPath', 'client');
-    app.use(morgan('dev'));
+    app.use(morgan(logFormat));
     app.use(errorHandler()); // Error handler - has to be last
   }
 };
