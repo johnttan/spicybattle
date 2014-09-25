@@ -1,7 +1,7 @@
 .ui.grid
   .row
     .four.wide.left.aligned.column
-      .ui.huge.header Leaderboard
+      .ui.huge.header Leaderboard | Updates every 10 mins
       .ui.huge.ordered.list
           a.item(ng-repeat="leader in leaders | orderBy:'profile.elo':true" ng-click="searchPlayer(leader.playerName)")
             {{leader.playerName}} | {{leader.profile.elo}}
@@ -10,7 +10,7 @@
         .ui.green.button(ng-click="statsView='champions'") Champions Stats
         .ui.blue.button(ng-click="statsView='packs'") Backpack Stats
       .ui.segment(ng-show="statsView=='champions'")
-        .ui.huge.header Global Champions Stats (last {{globalStats.gamesAnalyzed}} games) | Updated every hour
+        .ui.huge.header Global Champions Stats (last {{globalStats.gamesAnalyzed}} games) | Updates every hour
         .ui.buttons
           .ui.button(ng-click="changeSortKey('winRate')") Win Rate
           .ui.button(ng-click="changeSortKey('elo')") ELO/g
@@ -34,15 +34,15 @@
               |{{statObj.stats.averages.jungleMobs | number:2}} jungle | {{statObj.stats.averages.scoreTotal | number:2}} score 
             .ui.divider
       .ui.segment(ng-show="statsView=='packs'")
-        .ui.huge.header Global Backpack Stats 
+        .ui.huge.header Global Backpack Stats | Updates every hour
         .ui.buttons
           .ui.button(ng-click="changeSortKey('winRate')") Win Rate
           .ui.button(ng-click="changeSortKey('elo')") ELO/g
           .ui.blue.button(ng-click="changeSortKey('wins')") Wins
           .ui.red.button(ng-click="changeSortKey('losses')") Losses
-          .ui.green.button(ng-click="changeSortKey('kills')") Kills/g
-          .ui.yellow.button(ng-click="changeSortKey('deaths')") Deaths/g
-          .ui.purple.button(ng-click="changeSortKey('assists')") Assists/g
+          //- .ui.green.button(ng-click="changeSortKey('kills')") Kills/g
+          //- .ui.yellow.button(ng-click="changeSortKey('deaths')") Deaths/g
+          //- .ui.purple.button(ng-click="changeSortKey('assists')") Assists/g
         .ui.divider
         .ui.list
           .item(ng-repeat='statObj in globalStats.packStats | orderBy:sortChamps:reverse')
