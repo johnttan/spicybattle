@@ -1,7 +1,8 @@
 .ui.grid
   .row
     .four.wide.left.aligned.column
-      .ui.huge.header Leaderboard | Updates every 10 mins
+      .ui.huge.header Leaderboard
+      .ui.header Click on names to search for their profile
       .ui.huge.ordered.list
           a.item(ng-repeat="leader in leaders | orderBy:'profile.elo':true" ng-click="searchPlayer(leader.playerName)")
             {{leader.playerName}} | {{leader.profile.elo}}

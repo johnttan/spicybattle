@@ -2,11 +2,11 @@
   .ui.grid
     .two.column.row
       .column.ui.vertical.menu#sidebar
-          .ui.blue.large.header SPICY BATTLE ALPHA
+          .ui.blue.large.header SPICY BATTLE BETA
           .ui.action.input#searchBox
             input(ng-model="search.player")
             .ui.button.blue(ng-click="searchPlayer(search.player)") Search
-          .ui.header.red(ng-show="error") {{error}}
+          .ui.huge.header.red(ng-show="error") {{error}}
           div
           .ui.header(ng-show="profile") {{profile.playerName}}
           .ui.huge.red.header(ng-show="profile.elo") {{profile.elo}} ELO 
