@@ -34,7 +34,6 @@ updateEloLeaderboards = ->
           name: 'eloleaderboard'
           data: eloArray
         }
-        console.log eloArray, doc
         Statistics.update({name: 'eloleaderboard'}, doc, {upsert:true}, (err)->
           if err
             console.log err
