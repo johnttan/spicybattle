@@ -9,7 +9,7 @@ mongoose.connect(config.mongo.uri, config.mongo.options)
 updateEloLeaderboards = ->
   startTime = new Date()
   Data.find({}, 'playerName profile.elo').sort('-profile.elo').exec((err, docs)->
-    docslimited = JSON.parse(JSON.stringify(docs.splice(0, 50)))
+    # docslimited = JSON.parse(JSON.stringify(docs.splice(0, 50)))
     doc = {
       name: 'eloleaderboard'
       data: docslimited
