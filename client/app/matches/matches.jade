@@ -1,3 +1,4 @@
+.ui.red.header Refreshes intermittently. May not show up immediately if match finished before 15 minutes.
 .ui.segment(ng-repeat="game in gameLog | orderBy:'-_date'")
   .ui.inverted.top.attached.center.aligned.huge.header(ng-class="gameWin(game, true)") {{game.balanceType}} | {{gameWin(game)}} ({{game.elo}} ELO) | {{changeToDate(game._date) | amDateFormat:'dddd, MMMM Do YYYY, h:mm a'}}
   .ui.grid
