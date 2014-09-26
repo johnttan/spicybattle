@@ -17,7 +17,6 @@ updateEloLeaderboards = ->
             elo: data.profile.elo
           }
           eloArray.push(playerData)
-          console.log playerData
       return map
   startTime = new Date()
   stream = Data.find().stream()
