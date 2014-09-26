@@ -7,24 +7,46 @@ mongoose.connect(config.mongo.uri, config.mongo.options)
 
 # Should limit to 1800 elo and above on release.
 updateEloLeaderboards = ->
+  eloArray = []
+  processElo = 
+    do(eloArray=eloArray)->
+      map = (data)->
+        if data
+          playerData = {
+            playerName: data.playerName
+            elo: data.profile.elo
+          }
+          eloArray.push(playerData)
+          console.log playerData
+      return map
   startTime = new Date()
-  Data.find({}, 'playerName profile.elo').sort('-profile.elo').exec((err, docs)->
-    # docslimited = JSON.parse(JSON.stringify(docs.splice(0, 50)))
-    doc = {
-      name: 'eloleaderboard'
-      data: docs
-    }
-    Statistics.update({name: 'eloleaderboard'}, doc, {upsert:true}, (err)->
-        if err
-          console.log err
-          console.log 'error in ' + (endTime - startTime).toString()
-          endTime = new Date()
-          process.exit()
-        else
-          endTime = new Date()
-          console.log 'done updating eloleaderboard in ' + (endTime - startTime).toString()
-          process.exit()
-    )
+  stream = Data.find().stream()
+  stream.on('data', processElo)
+  stream.on('error', ->
+    console.log 'error processing leaderboard'
+  )
+  stream.on('close', 
+    do(eloArray=eloArray, Statistics=Statistics, startTime=startTime)->
+      ->
+        eloArray.sort((a, b)->
+          return b.elo - a.elo
+        )
+        doc = {
+          name: 'eloleaderboard'
+          data: eloArray
+        }
+        console.log eloArray, doc
+        Statistics.update({name: 'eloleaderboard'}, doc, {upsert:true}, (err)->
+          if err
+            console.log err
+            console.log 'error in ' + (endTime - startTime).toString()
+            endTime = new Date()
+            process.exit()
+          else
+            endTime = new Date()
+            console.log 'done updating eloleaderboard in ' + (endTime - startTime).toString()
+            process.exit()
+        )
   )
 
 updateEloLeaderboards()
