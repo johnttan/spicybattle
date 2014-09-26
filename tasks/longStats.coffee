@@ -45,6 +45,8 @@ mapReduce =
                 )
             )
             globalStats.gamesAnalyzed += stats.gamesAnalyzed
+        else
+          console.log 'noDataError on longStats', data
       return map
 console.log 'begin processing globalstats'
 startTime = new Date()
