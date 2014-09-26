@@ -12,7 +12,7 @@ updateEloLeaderboards = ->
     # docslimited = JSON.parse(JSON.stringify(docs.splice(0, 50)))
     doc = {
       name: 'eloleaderboard'
-      data: docslimited
+      data: docs
     }
     Statistics.update({name: 'eloleaderboard'}, doc, {upsert:true}, (err)->
         if err
