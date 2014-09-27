@@ -50,7 +50,7 @@ angular.module 'spicyPartyApp'
       if error is 'Bad Request'
         scope.error = 'Enable your plugin and refresh the game!'
       else
-        scope.error = 'No player found. Remember to search for full name. Check FAQ'
+        scope.error = 'No player found. Remember to search for full name and be registered with extension. Check FAQ.'
 
   $scope.$watch(
     ->
