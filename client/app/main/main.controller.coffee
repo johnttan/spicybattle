@@ -114,14 +114,17 @@ angular.module 'spicyPartyApp'
     if $scope.profile and $scope.profile.playerName
       playerName = $scope.convertName($scope.profile.playerName)
       $state.go(location, {player: playerName})
-    if location is 'main.leaderboard'
+    if location is 'main.leaderboard' or location.pathname is '/leaderboard'
       Statistics.getEloLeaderboard()
       Statistics.getGlobalStats()
       if $scope.profile and $scope.profile.playerName
         playerParam = $scope.convertName($scope.profile.playerName)
       else
         playerParam = 'beta'
-      $state.go(location)
-  if $stateParams.player and $stateParams.player isnt 'beta'
+      $state.go('main.leaderboard')
+  if $stateParams.player and $stateParams.player isnt 'beta' and $stateParams.player isnt 'LEADERBOARD'
+    console.log $stateParams.player
     playerName = $scope.convertName($stateParams.player, true)
     $scope.searchPlayer(playerName)
+  if $stateParams.player is 'LEADERBOARD'
+    $scope.goTo('main.leaderboard')
