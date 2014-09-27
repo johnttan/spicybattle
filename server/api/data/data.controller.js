@@ -36,6 +36,7 @@ exports.show = function(req, res) {
       update(req, res);
     }else{
       // If last game is too soon, or rate limit reached, return the document without expensive update operations.
+      delete data.profile.token
       return res.json(data);
     }
   });

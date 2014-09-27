@@ -25,6 +25,7 @@ exports.func = function(body, res, cb){
       data.inventory = data.data.inventory;
       data.profile = data.data.profile;
       data.playerName = data.profile.playerName;
+      delete data.profile.token
       delete(data.data);
       var updateQuery = {
         $set: data,
