@@ -6,7 +6,7 @@
       .ui.header Updates every 10 minutes
       .ui.header Shows rank change of last 3 days
       .ui.huge.ordered.list
-          a.item(ng-repeat="leader in leaders | orderBy:'elo':true" ng-click="searchPlayer(leader.playerName)")
+          a.item(ng-repeat="leader in leaders" ng-click="searchPlayer(leader.playerName)")
             .ui.tiny.header(ng-class="{purple: leader.delta > 0, red: leader.delta < 0}") {{leader.playerName}} | {{leader.elo}} | 
               i.arrow.icon(ng-class="{up: leader.delta > 0, down: leader.delta < 0, purple: leader.delta > 0, red: leader.delta < 0}", ng-show="leader.delta != 0") 
               |{{Math.abs(leader.delta)}}
