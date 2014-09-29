@@ -3,6 +3,8 @@
     .five.wide.left.aligned.column
       .ui.huge.header Leaderboard
       .ui.header Click on names to search for their profile
+      .ui.header Updates every 10 minutes
+      .ui.header Shows rank change of last 3 days
       .ui.huge.ordered.list
           a.item(ng-repeat="leader in leaders | orderBy:'elo':true" ng-click="searchPlayer(leader.playerName)")
             .ui.tiny.header(ng-class="{purple: leader.delta > 0, red: leader.delta < 0}") {{leader.playerName}} | {{leader.elo}} | 

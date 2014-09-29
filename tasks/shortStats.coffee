@@ -59,7 +59,7 @@ updateEloLeaderboards = (previousTable)->
 
 
 Statistics.findOne({name: 'eloleaderboard'}, (err, doc)->
-  if not doc.placementTable or doc.placementTable.increment >= 144
+  if not doc.placementTable or doc.placementTable.increment >= 444
     placementTable = {}
     _.each(doc.data, (player, ind)->
       placementTable[player.playerName] = ind
