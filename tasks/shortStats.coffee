@@ -17,6 +17,7 @@ updateEloLeaderboards = (previousTable)->
           playerData = {
             playerName: data.playerName
             elo: data.profile.elo
+            winRate: data.profile.winsPVP / data.profile.playsPVP
           }
           eloArray.push(playerData)
       return map
@@ -30,6 +31,8 @@ updateEloLeaderboards = (previousTable)->
     do(eloArray=eloArray, Statistics=Statistics, startTime=startTime, previousTable=previousTable, _=_)->
       ->
         eloArray.sort((a, b)->
+          if b.elo is a.elo
+            return b.winRate - a.winRate
           return b.elo - a.elo
         )
         _.each(eloArray, (player, ind)->
