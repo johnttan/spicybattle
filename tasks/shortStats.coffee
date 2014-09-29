@@ -4,9 +4,10 @@ config = require('../server/config/environment')
 Data = require('../server/api/data/data.model')
 Statistics = require('../server/api/statistics/statistics.model')
 mongoose.connect(config.mongo.uri, config.mongo.options)
+_ = require('lodash')
 
 # Should limit to 1800 elo and above on release.
-updateEloLeaderboards = ->
+updateEloLeaderboards = (previousTable)->
   eloArray = []
   processElo = 
     do(eloArray=eloArray)->
@@ -25,10 +26,13 @@ updateEloLeaderboards = ->
     console.log 'error processing leaderboard'
   )
   stream.on('close', 
-    do(eloArray=eloArray, Statistics=Statistics, startTime=startTime)->
+    do(eloArray=eloArray, Statistics=Statistics, startTime=startTime, previousTable=previousTable, _=_)->
       ->
         eloArray.sort((a, b)->
           return b.elo - a.elo
+        )
+        _.each(eloArray, (player, ind)->
+          player.delta = previousTable[player.playerName] - ind 
         )
         doc = {
           name: 'eloleaderboard'
@@ -47,4 +51,12 @@ updateEloLeaderboards = ->
         )
   )
 
-updateEloLeaderboards()
+
+Statistics.findOne({name: 'eloleaderboard'}, (err, doc)->
+  placementTable = {}
+  _.each(doc.data, (player, ind)->
+    placementTable[player.playerName] = ind
+  )
+  updateEloLeaderboards(placementTable)
+
+)
