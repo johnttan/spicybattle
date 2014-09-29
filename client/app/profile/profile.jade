@@ -2,7 +2,7 @@
   .row
     .eight.wide.left.aligned.column
       .ui.huge.header Lifetime Statistics
-      span.ui.large.header Tier {{tierConvert(tier)}} | {{profile.winsPVP / profile.playsPVP | number:1}} Win Rate | {{profile.winsPVP}} Wins | {{profile.playsPVP - profile.winsPVP}} Losses | {{profile.scoreTotal}} Total Score 
+      span.ui.large.header Tier {{tierConvert(tier)}} | {{100 * (profile.winsPVP / profile.playsPVP) | number:1}}% Win Rate | {{profile.winsPVP}} Wins | {{profile.playsPVP - profile.winsPVP}} Losses | {{profile.scoreTotal}} Total Score 
       .ui.large.header {{profile.kills}} Kills | {{profile.deaths}} Deaths | {{profile.assists}} Assists | {{profile.towers}} Towers | {{profile.altars}} Altars 
       .ui.large.header {{profile.minions}} Minions | {{profile.jungleMobs}} Jungle | {{profile.largestSpree}} Largest Spree | {{profile.scoreHighest}} Highest Score 
     .eight.wide.left.aligned.column
