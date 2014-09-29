@@ -17,7 +17,7 @@ updateEloLeaderboards = (previousTable)->
           playerData = {
             playerName: data.playerName
             elo: data.profile.elo
-            winRate: data.profile.winsPVP / data.profile.playsPVP
+            winRate: (data.profile.winsPVP / data.profile.playsPVP) * 100
           }
           eloArray.push(playerData)
       return map
@@ -33,7 +33,7 @@ updateEloLeaderboards = (previousTable)->
         eloArray.sort((a, b)->
           if b.elo is a.elo
             console.log 'same elo', b.playerName, b.elo, a.playerName, a.elo
-            console.log b.winRate, a.winRate
+            console.log b.winRate, a.winRate, b.winRate - a.winRate
             return b.winRate - a.winRate
           return b.elo - a.elo
         )
