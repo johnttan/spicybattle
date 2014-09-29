@@ -32,6 +32,8 @@ updateEloLeaderboards = (previousTable)->
       ->
         eloArray.sort((a, b)->
           if b.elo is a.elo
+            console.log 'same elo', b.playerName, b.elo, a.playerName, a.elo
+            console.log b.winRate, a.winRate
             return b.winRate - a.winRate
           return b.elo - a.elo
         )
