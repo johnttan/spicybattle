@@ -34,7 +34,7 @@ updateEloLeaderboards = (previousTable)->
           if b.elo is a.elo
             console.log 'same elo', b.playerName, b.elo, a.playerName, a.elo
             console.log b.winRate, a.winRate, b.winRate - a.winRate
-            return b.winRate - a.winRate
+            return a.winRate - b.winRate
           return b.elo - a.elo
         )
         _.each(eloArray, (player, ind)->
