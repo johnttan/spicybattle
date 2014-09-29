@@ -9,6 +9,7 @@
           .ui.huge.header.red(ng-show="error") {{error}}
           div
           .ui.header(ng-show="profile") {{profile.playerName}}
+          .ui.header.green(ng-if="profile.elo >= 3000") 3K ELO CLUB
           .ui.huge.red.header(ng-show="profile.elo") {{profile.elo}} ELO 
             img.ui.avatar.image(ng-src="http://i.cdn.turner.com/toon/games/adventuretime/adventure-time-battle-party/assets/img/icons/rank/icon_ELO_Rank_{{tier}}.png")
           .ui.header(ng-show="lastUpdated") Last Updated : {{lastUpdated | amDateFormat:'dddd, MMMM Do YYYY, h:mm a'}}
