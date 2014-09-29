@@ -6,7 +6,7 @@
       .ui.huge.ordered.list
           a.item(ng-repeat="leader in leaders | orderBy:'elo':true" ng-click="searchPlayer(leader.playerName)")
             div {{leader.playerName}} | {{leader.elo}} | 
-              i.arrow.icon(ng-class="{up: leader.delta > 0, down: leader.delta < 0, purple: leader.delta > 0, red: leader.delta < 0}", ng-show="leader.delta != 0") leader.delta
+              i.arrow.icon(ng-class="{up: leader.delta > 0, down: leader.delta < 0, purple: leader.delta > 0, red: leader.delta < 0}", ng-show="leader.delta != 0") {{leader.delta}}
     .eleven.wide.left.aligned.column
       .ui.buttons
         .ui.green.button(ng-click="statsView='champions'") Champions Stats
