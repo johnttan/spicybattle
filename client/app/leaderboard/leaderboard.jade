@@ -1,13 +1,14 @@
 .ui.grid
   .row
-    .six.wide.left.aligned.column
+    .five.wide.left.aligned.column
       .ui.huge.header Leaderboard
       .ui.header Click on names to search for their profile
       .ui.huge.ordered.list
           a.item(ng-repeat="leader in leaders | orderBy:'elo':true" ng-click="searchPlayer(leader.playerName)")
-            div {{leader.playerName}} | {{leader.elo}} | 
-              i.arrow.icon(ng-class="{up: leader.delta > 0, down: leader.delta < 0, purple: leader.delta > 0, red: leader.delta < 0}", ng-show="leader.delta != 0") {{leader.delta}}
-    .ten.wide.left.aligned.column
+            .ui.tiny.header(ng-class="{purple: leader.delta > 0, red: leader.delta < 0}") {{leader.playerName}} | {{leader.elo}} | 
+              i.arrow.icon(ng-class="{up: leader.delta > 0, down: leader.delta < 0, purple: leader.delta > 0, red: leader.delta < 0}", ng-show="leader.delta != 0") 
+              |{{Math.abs(leader.delta)}}
+    .eleven.wide.left.aligned.column
       .ui.buttons
         .ui.green.button(ng-click="statsView='champions'") Champions Stats
         .ui.blue.button(ng-click="statsView='packs'") Backpack Stats

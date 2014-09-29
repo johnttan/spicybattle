@@ -9,6 +9,7 @@ angular.module 'spicyPartyApp'
   $scope.sortChampKey = 'winRate'
   $scope.reverse = true
   $scope.statsView = 'champions'
+  $scope.Math = window.Math
   $scope.$watch(
     ->
       return Statistics.leaders
