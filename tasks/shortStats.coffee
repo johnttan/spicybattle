@@ -8,6 +8,7 @@ _ = require('lodash')
 
 # Should limit to 1800 elo and above on release.
 updateEloLeaderboards = (previousTable)->
+  console.log previousTable
   eloArray = []
   processElo = 
     do(eloArray=eloArray)->
@@ -34,9 +35,14 @@ updateEloLeaderboards = (previousTable)->
         _.each(eloArray, (player, ind)->
           player.delta = previousTable[player.playerName] - ind 
         )
+        if previousTable.increment
+          previousTable.increment = previousTable.increment + 1
+        else
+          previousTable.increment = 1
         doc = {
           name: 'eloleaderboard'
           data: eloArray
+          placementTable: previousTable
         }
         Statistics.update({name: 'eloleaderboard'}, doc, {upsert:true}, (err)->
           if err
@@ -53,10 +59,14 @@ updateEloLeaderboards = (previousTable)->
 
 
 Statistics.findOne({name: 'eloleaderboard'}, (err, doc)->
-  placementTable = {}
-  _.each(doc.data, (player, ind)->
-    placementTable[player.playerName] = ind
-  )
+  if not doc.placementTable or doc.placementTable.increment >= 144
+    placementTable = {}
+    _.each(doc.data, (player, ind)->
+      placementTable[player.playerName] = ind
+    )
+    placementTable.increment = 1
+  else
+    placementTable = doc.placementTable
   updateEloLeaderboards(placementTable)
 
 )

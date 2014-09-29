@@ -5,7 +5,8 @@ var mongoose = require('mongoose'),
 
 var StatisticsSchema = new Schema({
   name: {type: String, index:true},
-  data: Object
+  data: Object,
+  placementTable: Object
 });
 
 module.exports = mongoose.model('Statistics', StatisticsSchema);
