@@ -6,7 +6,7 @@ angular.module 'spicyPartyApp'
   Statistics.getEloStats($scope)
   $scope.$watch(
     ->
-      return Statistics.eloStats
+      return Statistics.eloStats[0]
     ,
     ->
       console.log 'watch fired'
