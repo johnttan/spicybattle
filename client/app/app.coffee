@@ -15,5 +15,5 @@ angular.module 'spicyPartyApp', [
   $urlRouterProvider
   .otherwise '/'
   $locationProvider.html5Mode true
-
+  $stickyStateProvider.enableDebug(true)
 .run ($rootScope, $location) ->
