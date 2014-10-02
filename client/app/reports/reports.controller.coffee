@@ -4,7 +4,8 @@ angular.module 'spicyPartyApp'
 .controller 'ReportsCtrl', ($scope, Statistics) ->
   console.log 'reportsctrl'
   $scope.eloStatsData = Statistics.eloStats
-  Statistics.getEloStats($scope)
+  if not $scope.eloStatsData[0]
+    Statistics.getEloStats($scope)
   $scope.$watch(
     ->
       return Statistics.eloStats[0]
