@@ -7,7 +7,8 @@ angular.module 'spicyPartyApp', [
   'ui.router',
   'ui.bootstrap',
   'LocalStorageModule',
-  'angularMoment'
+  'angularMoment',
+  'nvd3'
 ]
 .config ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) ->
   $urlRouterProvider

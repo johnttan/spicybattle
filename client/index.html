@@ -11,6 +11,7 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(client) app/vendor.css -->
       <!-- bower:css -->
+      <link rel="stylesheet" href="bower_components/nvd3/src/nv.d3.css" />
       <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,client}) app/app.css -->
@@ -56,6 +57,9 @@
       <script src="bower_components/angular-local-storage/angular-local-storage.js"></script>
       <script src="bower_components/moment/moment.js"></script>
       <script src="bower_components/angular-moment/angular-moment.js"></script>
+      <script src="bower_components/d3/d3.js"></script>
+      <script src="bower_components/nvd3/nv.d3.js"></script>
+      <script src="bower_components/angular-nvd3/dist/angular-nvd3.min.js"></script>
       <!-- endbower -->
     <!-- endbuild -->
 
@@ -68,6 +72,7 @@
           <script src="app/main/main.js"></script>
           <script src="app/matches/matches.js"></script>
           <script src="app/profile/profile.js"></script>
+          <script src="app/reports/reports.js"></script>
           <script src="app/services/PlayerData/PlayerData.js"></script>
           <script src="app/services/ProfileStats/ProfileStats.js"></script>
           <script src="app/services/Recent/Recent.js"></script>

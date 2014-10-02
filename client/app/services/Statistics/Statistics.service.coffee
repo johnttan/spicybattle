@@ -7,6 +7,7 @@ angular.module 'spicyPartyApp'
       @http = $http
       @leaders = []
       @globalStats = {}
+      @eloStats = []
     loadLeaders: (data)=>
       console.log "loaded leaderboard"
       @leaders = data.data
@@ -17,14 +18,36 @@ angular.module 'spicyPartyApp'
           name: key
           stats: el
         }
-        )
+      )
       @globalStats.packStats = _.map(data.data.packStats, (el, key)->
         return {
           name: key
           stats: el
         }
-        )
+      )
       @globalStats.gamesAnalyzed = data.data.gamesAnalyzed
+    loadEloStats: (data)=>
+      winners = {
+        key: 'Wins'
+        color: '#0049BD'
+        values: []
+      }
+      losers = {
+        key: 'Losses'
+        color: '#F3005D'
+        values: []
+      }
+      _.each(data.data, (dataPoint)->
+        dataPoint.x = dataPoint.delta
+        dataPoint.y = dataPoint.eloGain
+        delete dataPoint.delta
+        delete dataPoint.eloGain
+        if parseInt(dataPoint.y) > 0
+          winners.values.push(dataPoint)
+        else if parseInt(dataPoint.y) < 0
+          losers.values.push(dataPoint)
+      )
+      @eloStats = [winners, losers]
     getEloLeaderboard: =>
       @http.get('/api/statistics/eloleaderboard')
         .success(@loadLeaders)
@@ -37,5 +60,10 @@ angular.module 'spicyPartyApp'
         .error((error)->
           console.log(error)
         )
-
+    getEloStats: =>
+      @http.get('/api/statistics/elostats')
+        .success(@loadEloStats)
+        .error((error)->
+          console.log(error)
+        )
 ]
