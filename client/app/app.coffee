@@ -9,7 +9,8 @@ angular.module 'spicyPartyApp', [
   'LocalStorageModule',
   'angularMoment',
   'nvd3',
-  "ct.ui.router.extras"
+  "ct.ui.router.extras",
+  "nvd3ChartDirectives"
 ]
 .config ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, $stickyStateProvider) ->
   $urlRouterProvider

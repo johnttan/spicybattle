@@ -118,7 +118,12 @@ angular.module 'spicyPartyApp'
       Statistics.getEloLeaderboard()
       Statistics.getGlobalStats()
       $state.go('main.leaderboard')
-  if $stateParams.player
-    console.log $stateParams.player
-    playerName = $scope.convertName($stateParams.player, true)
-    $scope.searchPlayer(playerName)
+  console.log $stateParams
+  initialurl = $location.path().split('/')[1].toLowerCase()
+  if initialurl
+    if initialurl isnt 'leaderboard' and initialurl isnt 'reports'
+      console.log $location.path().split('/')[1]
+      playerName = $scope.convertName($location.path().split('/')[1], true)
+      $scope.searchPlayer(playerName)
+    else
+      $scope.goTo('main.' + initialurl)
