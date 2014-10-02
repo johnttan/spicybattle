@@ -2,15 +2,16 @@
 
 angular.module 'spicyPartyApp'
 .controller 'ReportsCtrl', ($scope, Statistics) ->
-  Statistics.getEloStats()
+  Statistics.getEloStats($scope)
   $scope.$watch(
     ->
       return Statistics.eloStats
     ,
     ->
-      $scope.data = Statistics.eloStats
+      if not $scope.data
+        console.log 'watch fired'
+        $scope.data = Statistics.eloStats
     )
-
   $scope.options = {
     chart: {
       transitionDuration: 0

@@ -60,7 +60,8 @@ angular.module 'spicyPartyApp'
         .error((error)->
           console.log(error)
         )
-    getEloStats: =>
+    getEloStats: ($scope)=>
+      @scope = $scope
       @http.get('/api/statistics/elostats')
         .success(@loadEloStats)
         .error((error)->
