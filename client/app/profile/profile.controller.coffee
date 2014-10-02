@@ -41,9 +41,7 @@ angular.module 'spicyPartyApp'
     return url
   $scope.changeSortKey = (key)->
     if key is $scope.sortChampKey
-      console.log key
       $scope.reverse = !$scope.reverse
-      console.log $scope.reverse
     else
       $scope.sortChampKey = key
   $scope.sortChamps = (el)->

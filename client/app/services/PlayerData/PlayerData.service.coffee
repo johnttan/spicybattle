@@ -26,7 +26,6 @@ angular.module 'spicyPartyApp'
         @stats = @getStats(playerData.gameLog)
         @http.get("http://ctn-facade.turner.com/service/stats/champions/"+ playerData.userId).success((data)=>
           @tier = data.badgeVal
-          console.log @tier
           )
       searchPlayer: (playerName, error)=>
         @profile = {}

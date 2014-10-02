@@ -13,6 +13,7 @@ angular.module 'spicyPartyApp', [
   "nvd3ChartDirectives"
 ]
 .config ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, $stickyStateProvider) ->
+  console.log $stickyStateProvider
   $urlRouterProvider
   .otherwise '/'
   $locationProvider.html5Mode true

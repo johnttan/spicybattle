@@ -83,7 +83,6 @@ angular.module 'spicyPartyApp'
       secondUrl = 'matches'
       if path[2]
         secondUrl = path[2]
-        console.log secondUrl
       goState += secondUrl
       $state.go(goState, {player: playerName})
       PlayerData.searchPlayer(playerName, errorSearch)
@@ -118,7 +117,6 @@ angular.module 'spicyPartyApp'
       Statistics.getEloLeaderboard()
       Statistics.getGlobalStats()
       $state.go('main.leaderboard')
-  console.log $stateParams
   initialurl = $location.path().split('/')[1].toLowerCase()
   if initialurl
     if initialurl isnt 'leaderboard' and initialurl isnt 'reports'
