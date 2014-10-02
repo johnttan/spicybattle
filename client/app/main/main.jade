@@ -31,5 +31,5 @@
           include ../matches/matches.jade
         div(ng-show="checkLocation('/leaderboard')" ng-controller="LeaderboardCtrl")
           include ../leaderboard/leaderboard.jade
-        div(ng-show="checkLocation('/reports')" ng-controller="ReportsCtrl")
+        div(ng-if="checkLocation('/reports')" ng-controller="ReportsCtrl")
           include ../reports/reports.jade
