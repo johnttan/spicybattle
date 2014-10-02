@@ -92,7 +92,8 @@ angular.module 'spicyPartyApp'
     $scope.recentSearches = Recent.clearHistory()
   $scope.checkLocation = (location)->
     if location is 'main.home'
-      return $state.is(location) or $state.is('main')
+      bool = $state.is(location) or $state.is('main')
+      return bool
     return $state.is(location)
   $scope.convertToSec = (ms)->
     return parseInt(ms / 1000)
@@ -108,7 +109,7 @@ angular.module 'spicyPartyApp'
     url = "http://i.cdn.turner.com/toon/games/adventuretime/adventure-time-battle-party/assets/img/champions-icon-" + urlname + ".jpg"
     return url
   $scope.goTo = (location)->
-    if location is 'main.home'
+    if location is 'main.home' or location is 'main.reports'
       $state.go(location)
     if $scope.profile and $scope.profile.playerName
       playerName = $scope.convertName($scope.profile.playerName)
