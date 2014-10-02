@@ -1,7 +1,7 @@
 mongoose = require('mongoose')
-# mongouri = "mongodb://"+process.env.MONGOUSER+":"+process.env.MONGOPASS+"@kahana.mongohq.com:10066/app29055850"
-mongouri = 'mongodb://localhost/spicyparty-dev'
-mongoose.connect(mongouri)
+process.env.NODE_ENV = process.env.NODE_ENV || 'development'
+config = require('../server/config/environment')
+mongoose.connect(config.mongo.uri, config.mongo.options)
 Data = require('../server/api/data/data.model')
 Statistics = require('../server/api/statistics/statistics.model')
 _ = require('lodash')
