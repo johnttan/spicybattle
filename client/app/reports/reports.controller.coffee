@@ -2,15 +2,15 @@
 
 angular.module 'spicyPartyApp'
 .controller 'ReportsCtrl', ($scope, Statistics) ->
+  console.log 'reportsctrl'
   Statistics.getEloStats($scope)
   $scope.$watch(
     ->
       return Statistics.eloStats
     ,
     ->
-      if not $scope.data
-        console.log 'watch fired'
-        $scope.data = Statistics.eloStats
+      console.log 'watch fired'
+      $scope.data = Statistics.eloStats
     )
   $scope.options = {
     chart: {

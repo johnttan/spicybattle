@@ -2,6 +2,7 @@
 
 angular.module 'spicyPartyApp'
 .controller 'LeaderboardCtrl', ($scope, $rootScope, Statistics) ->
+  console.log 'leaderboardctrl'
   Statistics.getEloLeaderboard()
   Statistics.getGlobalStats()
   $scope.leaders = Statistics.leaders

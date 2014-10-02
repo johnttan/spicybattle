@@ -8,12 +8,12 @@ angular.module 'spicyPartyApp', [
   'ui.bootstrap',
   'LocalStorageModule',
   'angularMoment',
-  'nvd3'
+  'nvd3',
+  "ct.ui.router.extras"
 ]
-.config ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) ->
+.config ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, $stickyStateProvider) ->
   $urlRouterProvider
   .otherwise '/'
-
   $locationProvider.html5Mode true
 
 .run ($rootScope, $location) ->

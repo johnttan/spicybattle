@@ -86,17 +86,14 @@ angular.module 'spicyPartyApp'
         console.log secondUrl
       goState += secondUrl
       $state.go(goState, {player: playerName})
-      $location.path('/' + playerName + '/' + secondUrl)
       PlayerData.searchPlayer(playerName, errorSearch)
 
   $scope.clearHistory = ->
     $scope.recentSearches = Recent.clearHistory()
   $scope.checkLocation = (location)->
-    altLoc = $location.path().split('/')[2]
-    if not altLoc
-      return '/' is location
-    else
-      return '/' + $location.path().split('/')[2] is location
+    if location is 'main.home'
+      return $state.is(location) or $state.is('main')
+    return $state.is(location)
   $scope.convertToSec = (ms)->
     return parseInt(ms / 1000)
   $scope.changeToDate = (dateString)->
@@ -111,20 +108,16 @@ angular.module 'spicyPartyApp'
     url = "http://i.cdn.turner.com/toon/games/adventuretime/adventure-time-battle-party/assets/img/champions-icon-" + urlname + ".jpg"
     return url
   $scope.goTo = (location)->
+    if location is 'main.home'
+      $state.go(location)
     if $scope.profile and $scope.profile.playerName
       playerName = $scope.convertName($scope.profile.playerName)
       $state.go(location, {player: playerName})
-    if location is 'main.leaderboard' or location.pathname is '/leaderboard'
+    if location is 'main.leaderboard'
       Statistics.getEloLeaderboard()
       Statistics.getGlobalStats()
-      if $scope.profile and $scope.profile.playerName
-        playerParam = $scope.convertName($scope.profile.playerName)
-      else
-        playerParam = 'beta'
       $state.go('main.leaderboard')
-  if $stateParams.player and $stateParams.player isnt 'beta' and $stateParams.player isnt 'LEADERBOARD'
+  if $stateParams.player
     console.log $stateParams.player
     playerName = $scope.convertName($stateParams.player, true)
     $scope.searchPlayer(playerName)
-  if $stateParams.player is 'LEADERBOARD'
-    $scope.goTo('main.leaderboard')

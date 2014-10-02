@@ -4,6 +4,6 @@ angular.module 'spicyPartyApp'
 .config ($stateProvider) ->
   $stateProvider
   .state 'main',
-    url: '/:player',
+    url: '/',
     templateUrl: 'app/main/main.html',
     controller: 'MainCtrl'

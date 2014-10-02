@@ -13,23 +13,18 @@
           .ui.huge.red.header(ng-show="profile.elo") {{profile.elo}} ELO 
             img.ui.avatar.image(ng-src="http://i.cdn.turner.com/toon/games/adventuretime/adventure-time-battle-party/assets/img/icons/rank/icon_ELO_Rank_{{tier}}.png")
           .ui.header(ng-show="lastUpdated") Last Updated : {{lastUpdated | amDateFormat:'dddd, MMMM Do YYYY, h:mm a'}}
-          a.item.header.teal(ng-click="goTo('main.home')" ng-class="{active:checkLocation('/')}") FAQ | HELP | PATCH
-          a.item.header.red(ng-click="goTo('main.matches')" ng-class="{active:checkLocation('/matches')}") Match History
-          a.item.header.green(ng-click="goTo('main.profile')" ng-class="{active:checkLocation('/profile')}") Profile
-          a.item.header.blue(ng-click="goTo('main.leaderboard')" ng-class="{active:checkLocation('/leaderboard')}") Leaderboard and Global Statistics
-          a.item.header.blue(ng-click="goTo('main.reports')" ng-class="{active:checkLocation('/reports')}") Reports
+          a.item.header.teal(ng-click="goTo('main.home')" ng-class="{active:checkLocation('main.home')}") FAQ | HELP | PATCH
+          a.item.header.red(ng-click="goTo('main.matches')" ng-class="{active:checkLocation('main.matches')}") Match History
+          a.item.header.green(ng-click="goTo('main.profile')" ng-class="{active:checkLocation('main.profile')}") Profile
+          a.item.header.blue(ng-click="goTo('main.leaderboard')" ng-class="{active:checkLocation('main.leaderboard')}") Leaderboard and Global Statistics
+          a.item.header.blue(ng-click="goTo('main.reports')" ng-class="{active:checkLocation('main.reports')}") Reports
           .item.header Recent Searches
             .menu
               a.item(ng-repeat="(name, object) in recentSearches" ng-click="searchPlayer(name)" ng-if="object.display") {{convertName(name, true)}} {{object.time | date:short}}
             span.ui.small.button(ng-click="clearHistory()") Clear
-      .column#dataView
-        div(ng-show="checkLocation('/')" ng-controller="HomeCtrl")
-          include ../home/home.jade
-        div(ng-show="checkLocation('/profile')" ng-controller="ProfileCtrl")
-          include ../profile/profile.jade
-        div(ng-show="checkLocation('/matches')" ng-if="profile.elo")
-          include ../matches/matches.jade
-        div(ng-show="checkLocation('/leaderboard')" ng-controller="LeaderboardCtrl")
-          include ../leaderboard/leaderboard.jade
-        div(ng-show="checkLocation('/reports')" ng-controller="ReportsCtrl")
-          include ../reports/reports.jade
+      .column
+        div(ui-view='reports' ng-show="checkLocation('main.reports')")
+        div(ui-view='profile' ng-show="checkLocation('main.profile')")
+        div(ui-view='matches' ng-show="checkLocation('main.matches')")
+        div(ui-view='leaderboard' ng-show="checkLocation('main.leaderboard')")
+        div(ui-view='home' ng-show="checkLocation('main.home')")

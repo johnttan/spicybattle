@@ -48,6 +48,7 @@ angular.module 'spicyPartyApp'
           losers.values.push(dataPoint)
       )
       @eloStats = [winners, losers]
+      console.log 'loaded elostats'
     getEloLeaderboard: =>
       @http.get('/api/statistics/eloleaderboard')
         .success(@loadLeaders)
