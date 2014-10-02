@@ -61,6 +61,7 @@ angular.module 'spicyPartyApp'
           console.log(error)
         )
     getEloStats: ($scope)=>
+      console.log 'getting elo report'
       @scope = $scope
       @http.get('/api/statistics/elostats')
         .success(@loadEloStats)

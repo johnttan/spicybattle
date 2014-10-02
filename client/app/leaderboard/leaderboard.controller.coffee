@@ -50,8 +50,9 @@ angular.module 'spicyPartyApp'
       return el.stats.averages[$scope.sortChampKey]
 
   $scope.formatPack = (pack)->
-    splitUp = pack.split('_')
-    if splitUp[2]
-      return splitUp[1] + ' ' + splitUp[2] 
-    else
-      return splitUp[1]
+    if pack
+      splitUp = pack.split('_')
+      if splitUp[2]
+        return splitUp[1] + ' ' + splitUp[2] 
+      else
+        return splitUp[1]
