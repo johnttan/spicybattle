@@ -13,6 +13,7 @@ angular.module 'spicyPartyApp'
 
   $scope.options = {
     chart: {
+      transitionDuration: 0
       type: 'scatterChart'
       height: 450
       scatter: {
