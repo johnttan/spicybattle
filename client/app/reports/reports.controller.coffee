@@ -35,3 +35,7 @@ angular.module 'spicyPartyApp'
     }
 
   }
+
+  $scope.tooltipContent = ->
+    (key, x, y)->
+      return '<strong>' + x + ' ' + '</strong>'
