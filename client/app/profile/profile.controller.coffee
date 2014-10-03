@@ -19,9 +19,11 @@ angular.module 'spicyPartyApp'
           return {name: key, stats: el}
       )
       _.each($scope.champStats, (el)->
-          el.stats.belts = _.map(el.stats.belts, (el1, key)->
-              return {name: key, games: el1}
-            )
+          if not Array.isArray(el.stats.belts)
+            el.stats.belts = _.map(el.stats.belts, (el1, key)->
+                console.log key, el1
+                return {name: key, games: el1}
+              )
         )
       $scope.gamesAnalyzed = PlayerData.stats.gamesAnalyzed
     )

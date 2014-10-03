@@ -22,7 +22,7 @@
             .menu
               a.item(ng-repeat="(name, object) in recentSearches" ng-click="searchPlayer(name)" ng-if="object.display") {{convertName(name, true)}} {{object.time | date:short}}
             span.ui.small.button(ng-click="clearHistory()") Clear
-      .column
+      .column#dataView
         div(ng-show="checkLocation('main.home')")
           include ../home/home.jade
         div(ui-view='reports' ng-show="checkLocation('main.reports')")
