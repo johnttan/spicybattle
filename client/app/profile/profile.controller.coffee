@@ -21,7 +21,6 @@ angular.module 'spicyPartyApp'
       _.each($scope.champStats, (el)->
           if not Array.isArray(el.stats.belts)
             el.stats.belts = _.map(el.stats.belts, (el1, key)->
-                console.log key, el1
                 return {name: key, games: el1}
               )
         )
