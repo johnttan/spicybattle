@@ -25,7 +25,11 @@
       .column#dataView
         div(ng-show="checkLocation('main.home')")
           include ../home/home.jade
-        div(ui-view='reports' ng-show="checkLocation('main.reports')")
-        div(ui-view='profile' ng-show="checkLocation('main.profile')")
-        div(ui-view='matches' ng-show="checkLocation('main.matches')")
-        div(ui-view='leaderboard' ng-show="checkLocation('main.leaderboard')")
+        div(ng-show="checkLocation('main.reports')" ng-controller="ReportsCtrl")
+          include ../reports/reports.jade
+        div(ng-show="checkLocation('main.profile')" ng-controller="ProfileCtrl")
+          include ../profile/profile.jade
+        div(ng-show="checkLocation('main.matches')" ng-controller="MatchesCtrl")
+          include ../matches/matches.jade
+        div(ng-show="checkLocation('main.leaderboard')" ng-controller="LeaderboardCtrl")
+          include ../leaderboard/leaderboard.jade
