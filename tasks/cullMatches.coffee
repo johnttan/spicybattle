@@ -8,7 +8,7 @@ _ = require('lodash')
 
 mapReduce = 
   do(Data=Data)->
-    (doc)->
+    map = (doc)->
       doc.gameLog.sort((a, b)->
         aDate = new Date(a._date)
         bDate = new Date(b._date)
@@ -19,13 +19,12 @@ mapReduce =
       Data.update({'playerName':doc.playerName}, {'gameLog':newGameLog}, (err, num)->
           console.log(err, num)
         )
-
+    return map
 stream = Data.find().stream()
 stream.on('data', mapReduce)
 stream.on('error', ->
   console.log 'error processing cullMatches'
   )
-stream.on('close',
+stream.on('close', ->
   console.log 'finished sending out updates for cullMatches'
-
 )
