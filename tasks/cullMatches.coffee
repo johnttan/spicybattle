@@ -7,19 +7,20 @@ Statistics = require('../server/api/statistics/statistics.model')
 _ = require('lodash')
 
 
-Data.update({'gameLog':{'$exists':true}}, 
-  {
-    $push:{
-      gameLog:{
-        $each: []
-        $sort: {_date: 1}
-        $slice: -100
+Data.where()
+  .setOptions({multi: true})
+  .update(
+    {
+      $push: {
+        gameLog: {
+          $each: []
+          $sort: {
+            '_date': 1
+          }
+          $slice: -100
+        }
       }
-    }
-  },
-  {
-    multi: true
-  },
-  (err, doc)->
-    console.log(err, doc)
-)
+    },
+    (err, num)->
+      console.log err, num
+  )
