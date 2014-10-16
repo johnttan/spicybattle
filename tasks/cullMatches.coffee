@@ -7,7 +7,7 @@ Statistics = require('../server/api/statistics/statistics.model')
 _ = require('lodash')
 
 
-Data.update({}, 
+Data.update({'gameLog':{'$exists':true}}, 
   {
     $push:{
       gameLog:{
