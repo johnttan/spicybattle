@@ -7,20 +7,15 @@ Statistics = require('../server/api/statistics/statistics.model')
 _ = require('lodash')
 
 
-Data.where()
-  .setOptions({multi: true})
-  .update(
-    {
-      $push: {
-        gameLog: {
-          $each: []
-          $sort: {
-            '_date': 1
-          }
-          $slice: -100
-        }
-      }
-    },
-    (err, num)->
-      console.log err, num
-  )
+Data.find().forEach((doc)->
+  doc.gameLog.sort((a, b)->
+    aDate = new Date(a._date)
+    bDate = new Date(b._date)
+    # Descending order. Earliest first.
+    return bDate.getTime() - aDate.getTime()
+    )
+  newGameLog = doc.gameLog.slice(0, 100)
+  Data.update({'playerName':doc.playerName}, {'gameLog':newGameLog}, (err, num)->
+      console.log(err, num)
+    )
+)
