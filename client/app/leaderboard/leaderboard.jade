@@ -41,6 +41,9 @@
             .ui.divider.reduce_margins_vertical
       .ui.data_box(ng-show="statsView=='packs'")
         .ui.huge.header.reduce_margins_vertical Global Backpack Stats | Updates every hour
+        .ui.buttons
+          .ui.green.button(ng-click="statsView='champions'") Champions Stats
+          .ui.blue.button(ng-click="statsView='packs'") Backpack Stats
         .ui.buttons.reduce_margins_vertical
           .ui.button(ng-click="changeSortKey('winRate')") Win Rate
           //- .ui.button(ng-click="changeSortKey('elo')") ELO/g
