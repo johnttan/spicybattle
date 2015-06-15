@@ -131,3 +131,17 @@
   padding-top 0px !important
   background-color white !important
   max-width 100px !important
+
+.limited_list
+  max-height 2000px !important
+  overflow-y scroll !important
+  padding-left 15px !important
+  ::-webkit-scrollbar {
+      -webkit-appearance: none;
+      width: 7px;
+  }
+  ::-webkit-scrollbar-thumb {
+      border-radius: 4px;
+      background-color: rgba(0,0,0,.5);
+      -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+  }

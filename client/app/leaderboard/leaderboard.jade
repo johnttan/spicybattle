@@ -6,11 +6,12 @@
         | Click on names to search for their profile
         | Updates every 10 minutes
         | Shows rank change of last 3 days
-      .ui.huge.ordered.list
+      .ui.huge.ordered.list.limited_list
           a.item.leader_items(ng-repeat="leader in leaders" ng-click="searchPlayer(leader.playerName)")
             .ui.tiny.header.leader_headers(ng-class="{purple: leader.delta > 0, red: leader.delta < 0}") {{leader.playerName}} | {{leader.elo}} | 
               i.arrow.icon(ng-class="{up: leader.delta > 0, down: leader.delta < 0, purple: leader.delta > 0, red: leader.delta < 0}", ng-show="leader.delta != 0")
               | {{Math.abs(leader.delta)}}
+      .ui.small.header MOUSEOVER LEADERBOARD AND SCROLL TO VIEW MORE
     .ten.wide.left.aligned.column
       .ui.data_box(ng-show="statsView=='champions'")
         .ui.large.header Global Stats (last {{globalStats.gamesAnalyzed}} games) | Updates every hour
