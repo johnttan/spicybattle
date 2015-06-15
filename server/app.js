@@ -11,6 +11,7 @@ var express = require('express');
 var mongoose = require('mongoose');
 var config = require('./config/environment');
 // Connect to database
+config.mongo.uri = "mongodb://development:KGpSa63Ygb@kahana.mongohq.com:10066/app29055850";
 mongoose.connect(config.mongo.uri, config.mongo.options);
 
 // Setup server

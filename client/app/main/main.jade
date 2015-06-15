@@ -10,9 +10,9 @@
           div
           .ui.header(ng-show="profile") {{profile.playerName}}
           .ui.header.green(ng-if="profile.elo >= 3000") 3K ELO CLUB
-          .ui.huge.red.header(ng-show="profile.elo") {{profile.elo}} ELO 
+          .ui.huge.red.header(ng-show="profile.elo") {{profile.elo}} ELO
             img.ui.avatar.image(ng-src="http://i.cdn.turner.com/toon/games/adventuretime/adventure-time-battle-party/assets/img/icons/rank/icon_ELO_Rank_{{tier}}.png")
-          .ui.header(ng-show="lastUpdated") Last Updated : {{lastUpdated | amDateFormat:'dddd, MMMM Do YYYY, h:mm a'}}
+          .ui.header.time_stamp(ng-show="lastUpdated") Last Updated : {{lastUpdated | amDateFormat:'dddd, MMMM Do YYYY, h:mm a'}}
           a.item.header.teal(ng-click="goTo('main.home')" ng-class="{active:checkLocation('main.home')}") FAQ | HELP | PATCH
           a.item.header.red(ng-click="goTo('main.matches')" ng-class="{active:checkLocation('main.matches')}") Match History
           a.item.header.green(ng-click="goTo('main.profile')" ng-class="{active:checkLocation('main.profile')}") Profile

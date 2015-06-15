@@ -1,34 +1,35 @@
 .ui.red.header Refreshes intermittently. May not show up immediately if match finished before 15 minutes.
-.ui.segment(ng-repeat="game in gameLog | orderBy:'-_date'")
-  .ui.inverted.top.attached.center.aligned.huge.header(ng-class="gameWin(game, true)") {{game.balanceType}} | {{gameWin(game)}} ({{game.elo}} ELO) | {{changeToDate(game._date) | amDateFormat:'dddd, MMMM Do YYYY, h:mm a'}}
+.ui.segment.game_item(ng-repeat="game in gameLog | orderBy:'-_date'")
+  .ui.top.attached.left.aligned.huge.header.game_header(ng-class="gameWin(game, true)") {{game.balanceType}} | {{gameWin(game)}} ({{game.elo}} ELO) | {{changeToDate(game._date) | amDateFormat:'dddd, MMMM Do YYYY, h:mm a'}}
   .ui.grid
     .four.column.row
-      .four.wide.right.aligned.column
-        .ui.rounded.image 
-          .ui.purple.header {{game.playerName}} lvl {{game.level}}
+      .two.wide.right.aligned.column.hero_matches_column
+        .ui.rounded.image.hero_image
+          .ui.purple.header.champion_header {{game.playerName}} lvl {{game.level}}
           img(ng-src="{{avatarURL(game.playerName)}}")
-      .two.wide.left.aligned.column
-        .ui.header Teammates
-        .ui.small.rounded.image
-          .ui.purple.header {{game.teammate1}}
-          img(ng-src="{{avatarURL(game.teammate1)}}")
-        .ui.small.rounded.image
-          .ui.purple.header {{game.teammate2}}
-          img(ng-src="{{avatarURL(game.teammate2)}}")
+      .three.wide.left.aligned.column.teammates_column
+        .ui.header.teammates_header Teammates
+        .ui.small.rounded.image.hero_image.teammate_image
+          .ui.purple.header.champion_header {{game.teammate1}}
+          img.teammate_img(ng-src="{{avatarURL(game.teammate1)}}")
+        .ui.small.rounded.image.hero_image.teammate_image
+          .ui.purple.header.champion_header {{game.teammate2}}
+          img.teammate_img(ng-src="{{avatarURL(game.teammate2)}}")
       .ten.wide.left.aligned.column
-        .ui.huge.header {{backpackBuild(game)}}
-        span.ui.huge.header.red KDA {{game.kills + '/' + game.deaths + '/' + game.assists}} | 
-        span.ui.huge.header.green  Score {{game.score}} 
+        span.ui.large.header.red KDA {{game.kills + '/' + game.deaths + '/' + game.assists}} |
+        span.ui.large.header.green  Score {{game.score}} |
+        span.ui.large.header.blue {{backpackBuild(game)}}
         .ui.divider
-        span.ui.large.header  Towers {{game.towers}} | 
-        span.ui.large.header  Minions {{game.minions}} | 
-        span.ui.large.header  Jungle {{game.jungleMobs}} | 
-        span.ui.large.header  Dead {{convertToSec(game.timeDead) + ' seconds'}} | 
-        span.ui.large.header  Largest Spree {{game.largestSpree}}
-        div
-        span.ui.large.header  Winning Team {{game.winTeamElo}} ELO | 
-        span.ui.large.header  Losing Team {{game.loseTeamElo}} ELO
-        div
-        span.ui.large.header  Damage Dealt {{game.damageDealtTotal}} | 
-        span.ui.large.header  Physical Damage {{game.damageDealtPhysical}} | 
-        span.ui.large.header  Magic Damage {{game.damageDealtSpell}}
+        .small_match_stats
+          span.ui.large.header  Towers {{game.towers}} |
+          span.ui.large.header  Minions {{game.minions}} |
+          span.ui.large.header  Jungle {{game.jungleMobs}} |
+          span.ui.large.header  Dead {{convertToSec(game.timeDead) + ' seconds'}} |
+          span.ui.large.header  Largest Spree {{game.largestSpree}}
+          div
+          span.ui.large.header  Winning Team {{game.winTeamElo}} ELO |
+          span.ui.large.header  Losing Team {{game.loseTeamElo}} ELO
+          div
+          span.ui.large.header  Damage Dealt {{game.damageDealtTotal}} |
+          span.ui.large.header  Physical Damage {{game.damageDealtPhysical}} |
+          span.ui.large.header  Magic Damage {{game.damageDealtSpell}}
