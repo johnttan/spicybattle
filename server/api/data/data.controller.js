@@ -21,15 +21,24 @@ function update(req, res) {
   });
 };
 
+var cache = {};
 // Get a single data
 exports.show = function(req, res) {
   console.log('getData from', req.ip)
   // Name is separated by "." in the REST URL
   var playerName = req.params.playerName.split('.').join(' ').toUpperCase()
+  var now = (new Date()).getTime();
+  if (cache[playerName] && (now - cache[playerName].time) < 30000) {
+    return res.json(cache[playerName].data)
+  }
   Data.findOne({'playerName':playerName}, function (err, data) {
     if(err) { return handleError(res, err); }
     if(!data) { return res.send(404); }
     var now = new Date().getTime();
+    cache[playerName] = {
+      time: now,
+      data: data
+    }
     // Rate limits update calls per player. Prevents unnecessary HTTP calls to CN servers and DB update operations.
     if(now - data.modifiedDate > 600000 && rateLimiter.checkPlayer(data.playerName)){
       console.log('updating ' + playerName + ' because outdated');
