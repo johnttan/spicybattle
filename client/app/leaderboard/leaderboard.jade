@@ -8,11 +8,11 @@
         | Shows rank change of last 3 days
       .ui.huge.ordered.list
           a.item.leader_items(ng-repeat="leader in leaders" ng-click="searchPlayer(leader.playerName)")
-            .ui.tiny.header(ng-class="{purple: leader.delta > 0, red: leader.delta < 0}") {{leader.playerName}} | {{leader.elo}} |
+            .ui.tiny.header.leader_headers(ng-class="{purple: leader.delta > 0, red: leader.delta < 0}") {{leader.playerName}} | {{leader.elo}} | 
               i.arrow.icon(ng-class="{up: leader.delta > 0, down: leader.delta < 0, purple: leader.delta > 0, red: leader.delta < 0}", ng-show="leader.delta != 0")
-              |{{Math.abs(leader.delta)}}
-    .twelve.wide.left.aligned.column
-      .ui.segment(ng-show="statsView=='champions'")
+              | {{Math.abs(leader.delta)}}
+    .ten.wide.left.aligned.column
+      .ui.data_box(ng-show="statsView=='champions'")
         .ui.large.header Global Stats (last {{globalStats.gamesAnalyzed}} games) | Updates every hour
         .ui.buttons
           .ui.green.button(ng-click="statsView='champions'") Champions Stats
@@ -29,19 +29,18 @@
         .ui.divider
         .ui.list
           .item(ng-repeat='statObj in globalStats.champStats | orderBy:sortChamps:reverse')
-            .ui.rounded.left.floated.image.hero_image
-              .ui.red.header.champion_header {{statObj.name}} {{statObj.stats.averages.wins * 100 | number:1}}% wins
+            .ui.rounded.left.floated.image.hero_stats_image.reduce_margins_vertical
               img(ng-src="{{avatarURL(statObj.name)}}")
-            .ui.header   {{statObj.stats.wins}} Wins | {{statObj.stats.losses}} Losses | {{statObj.stats.elo}} ELO
-            span.ui.header.small_stats(ng-repeat='(belt, games) in statObj.stats.belts | orderBy:"games":true' ng-show="(games / statObj.stats.totalGames) > .2") {{formatPack(belt)}} {{games / statObj.stats.totalGames * 100 | number:1}}% of games |
-            .ui.header Per Game Averages
-            .ui.header.small_stats {{statObj.stats.averages.kills | number:2}} kills |
+            .ui.header.reduce_margins_vertical   {{statObj.name}} | {{statObj.stats.averages.wins * 100 | number:1}}% Win Rate | {{statObj.stats.wins}} Wins | {{statObj.stats.losses}} Losses | {{statObj.stats.elo}} ELO
+            span.ui.header.small_stats.reduce_margins_vertical(ng-repeat='(belt, games) in statObj.stats.belts | orderBy:"games":true' ng-show="(games / statObj.stats.totalGames) > .2") {{formatPack(belt)}} {{games / statObj.stats.totalGames * 100 | number:1}}% of games |
+            .ui.header.reduce_margins_vertical Per Game Averages
+            .ui.header.small_stats.reduce_margins_vertical {{statObj.stats.averages.kills | number:2}} kills |
               |{{statObj.stats.averages.deaths | number:2}} deaths | {{statObj.stats.averages.assists | number:2}} assists |
               |{{statObj.stats.averages.jungleMobs | number:2}} jungle | {{statObj.stats.averages.scoreTotal | number:2}} score
-            .ui.divider
-      .ui.segment(ng-show="statsView=='packs'")
-        .ui.huge.header Global Backpack Stats | Updates every hour
-        .ui.buttons
+            .ui.divider.reduce_margins_vertical
+      .ui.data_box(ng-show="statsView=='packs'")
+        .ui.huge.header.reduce_margins_vertical Global Backpack Stats | Updates every hour
+        .ui.buttons.reduce_margins_vertical
           .ui.button(ng-click="changeSortKey('winRate')") Win Rate
           //- .ui.button(ng-click="changeSortKey('elo')") ELO/g
           .ui.blue.button(ng-click="changeSortKey('wins')") Wins
@@ -49,8 +48,8 @@
           //- .ui.green.button(ng-click="changeSortKey('kills')") Kills/g
           //- .ui.yellow.button(ng-click="changeSortKey('deaths')") Deaths/g
           //- .ui.purple.button(ng-click="changeSortKey('assists')") Assists/g
-        .ui.divider
-        .ui.list.backpack_list
+        .ui.divider.reduce_margins_vertical
+        .ui.list.backpack_list.reduce_margins_vertical
           .item(ng-repeat='statObj in globalStats.packStats | orderBy:sortChamps:reverse')
             .ui.header {{formatPack(statObj.name)}} | Win Rate {{statObj.stats.averages.wins * 100 | number:1}}% | {{statObj.stats.wins}} Wins | {{statObj.stats.losses}} Losses
             .ui.divider
